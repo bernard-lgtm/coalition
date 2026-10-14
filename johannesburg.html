@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Who can build a coalition in Johannesburg? | Daily Maverick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400&family=Geist:wght@400;500;600;700&family=Lora:wght@700&display=swap">
+<style>
+/* Embed: iframe height 786px. The height is the same at every width; on narrow screens the layout rearranges and the seat chart shrinks to fit. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html, body { margin: 0; padding: 0; background: #ffffff; overflow: hidden; }
+
+.emb { max-width: 659px; margin: 0 auto; background: #ffffff; color: #171717; font-family: Geist, "Helvetica Neue", Arial, sans-serif; container-type: inline-size; container-name: emb; }
+.frame { height: 786px; padding: 2px 0 6px; display: flex; flex-direction: column; overflow: hidden; }
+
+.e-title { flex: none; margin: 0; font-family: "DM Custom", Lora, Georgia, serif; font-weight: 700; font-size: 28px; line-height: 1.15; letter-spacing: -0.3px; color: #171717; text-wrap: balance; }
+.e-dek { flex: none; margin: 6px 0 0; font-family: "Charis SIL", Georgia, serif; font-size: 16px; line-height: 1.35; color: #292929; }
+
+button { font: inherit; -webkit-tap-highlight-color: transparent; }
+button:focus-visible { outline: 2px solid #d33d3d; outline-offset: -2px; }
+
+.e-tabs { flex: none; margin-top: 16px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; border-bottom: 2px solid #111111; }
+.tab { height: 48px; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 12px; background: #f2f2f2; color: #292929; border: 0; border-radius: 6px 6px 0 0; cursor: pointer; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; line-height: 1.2; transition: background-color .15s ease; }
+.tab-name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.3; }
+.tab-when { display: block; font-size: 11px; font-weight: 400; letter-spacing: 0; text-transform: none; color: #6b6c6d; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tab[aria-pressed="true"] { background: #111111; color: #ffffff; cursor: default; }
+.tab[aria-pressed="true"] .tab-when { color: #d4d4d4; }
+
+.e-chart { flex: 1 1 0; min-height: 0; margin-top: 10px; position: relative; container-type: size; }
+.hemi { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(100cqw, calc(100cqh * 1000 / 530)); aspect-ratio: 1000 / 530; container-type: inline-size; }
+.hemi-seats { position: absolute; inset: 0; }
+.seat { position: absolute; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%); background: #d4d4d4; transition: background-color .45s ease; }
+.maj-line { position: absolute; left: 50%; top: 0.4%; height: 76.3%; border-left: 1.5px dashed #181818; transform: translateX(-0.75px); }
+.tally { position: absolute; left: 50%; bottom: calc(3.6% - .15em); transform: translateX(-50%); white-space: nowrap; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: -0.04em; color: #171717; font-size: clamp(20px, 6.2cqw, 40px); }
+.tally-maj { color: #6b6c6d; font-weight: 500; font-size: .5em; letter-spacing: 0; }
+
+.e-head { margin: 0 0 8px; font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #292929; }
+.e-parties { flex: none; margin-top: 14px; }
+.e-chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 38px; gap: 6px; }
+.chip, .chip-nr { min-width: 0; height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 10px; border-radius: 8px; font-size: 14px; font-weight: 600; text-align: left; transition: background-color .15s ease, border-color .15s ease, opacity .3s ease; }
+.chip { background: #ffffff; border: 1px solid #d4d4d4; color: #171717; cursor: pointer; }
+.chip[aria-pressed="true"] { background: #f2f2f2; border-color: #181818; box-shadow: inset 0 0 0 1px #181818; }
+.chip-nr { border: 1px dashed #d4d4d4; color: #6b6c6d; }
+.swatch { flex: none; width: 10px; height: 10px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); }
+.chip-nr .swatch { opacity: .5; box-shadow: none; }
+.chip-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip-n { flex: none; font-weight: 700; font-variant-numeric: tabular-nums; }
+.chip-nr .chip-n { font-size: 12px; font-weight: 500; white-space: nowrap; }
+.chip.is-faded, .chip-nr.is-faded { opacity: .45; }
+.emb.in-path .chip.is-faded, .emb.in-path .chip-nr.is-faded { opacity: .3; }
+
+.e-paths { flex: none; margin-top: 16px; }
+.e-pathgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, 38px); gap: 6px 8px; }
+.path { min-width: 0; height: 38px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px; background: #ffffff; color: #171717; border: 1px solid #d4d4d4; border-radius: 8px; font-size: 14px; font-weight: 400; text-align: left; cursor: pointer; transition: background-color .15s ease, border-color .15s ease; }
+.path[aria-pressed="true"] { background: #111111; color: #ffffff; border-color: #111111; }
+.path-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.path-n { flex: none; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+@media (hover: hover) {
+  .tab:not([aria-pressed="true"]):hover { background: #e9e9e9; }
+  .chip:hover { background: #f2f2f2; }
+  .emb .chip.is-faded:hover { opacity: .75; }
+  .path:not([aria-pressed="true"]):hover { background: #f2f2f2; }
+}
+.emb .chip.is-faded:focus-visible { opacity: 1; }
+
+/* Phones: embed narrower than 640px */
+@container emb (max-width: 639.98px) {
+  .e-title { font-size: 22px; }
+  .e-dek { font-size: 15px; }
+  .e-tabs { margin-top: 14px; }
+  .tab { height: 52px; padding: 0 8px; font-size: 11px; letter-spacing: 0; }
+  .tab-name { white-space: normal; }
+  .e-chart { margin-top: 8px; }
+  .e-parties { margin-top: 12px; }
+  .e-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .e-paths { margin-top: 14px; }
+  .e-pathgrid { grid-template-columns: minmax(0, 1fr); grid-template-rows: repeat(5, 38px); }
+  .path { font-size: 13.5px; }
+}
+/* Smallest phones (320px screens) */
+@container emb (max-width: 319.98px) {
+  .tab { padding: 0 6px; font-size: 10.5px; }
+  .tab-name { overflow-wrap: anywhere; }
+  .chip, .chip-nr { padding: 0 7px; gap: 6px; font-size: 13px; }
+  .chip-nr .chip-n { font-size: 11px; }
+  .path { padding: 0 10px; font-size: 12.5px; }
+}
+@media (prefers-reduced-motion: reduce) { .seat, .tab, .chip, .chip-nr, .path { transition: none; } }
+</style>
+</head>
+<body>
+<div class="emb">
+  <div class="frame">
+    <h1 class="e-title">Who can build a coalition in Johannesburg?</h1>
+    <p class="e-dek"><b>Pick a poll</b>, then add parties to see if a deal reaches 136 of the 270 seats.</p>
+
+    <div class="e-tabs" id="tabs" role="group" aria-label="Choose a poll"></div>
+
+    <div class="e-chart">
+      <div class="hemi">
+        <div class="hemi-seats" id="seats" role="img" aria-label="Projected seats in the Johannesburg council"></div>
+        <span class="maj-line" aria-hidden="true"></span>
+        <div class="tally" aria-live="polite"><span id="tally">0</span> <span class="tally-maj">/ 136</span></div>
+      </div>
+    </div>
+
+    <section class="e-parties" aria-label="Parties">
+      <p class="e-head">Projected seats by party</p>
+      <div class="e-chips" id="chips"></div>
+    </section>
+
+    <section class="e-paths" aria-label="Paths to a majority">
+      <p class="e-head">Paths to a majority in this poll</p>
+      <div class="e-pathgrid" id="paths"></div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var PARTIES = {
+    DA:  { name: "DA",       color: "#5070ae" },
+    ASA: { name: "ActionSA", color: "#367c23" },
+    PA:  { name: "PA",       color: "#3daa84" },
+    FFP: { name: "FF+",      color: "#f2a22c" },
+    IFP: { name: "IFP",      color: "#8e1f3d" },
+    OTH: { name: "Other",    color: "#c0c0c0" },
+    EFF: { name: "EFF",      color: "#c84837" },
+    MK:  { name: "MK",       color: "#6aa852" },
+    ANC: { name: "ANC",      color: "#f0f05a" }
+  };
+  var EMPTY_SEAT = "#d4d4d4"; /* nothing selected yet */
+  var OUT_SEAT = "#e9e9e9";   /* outside the coalition: a step lighter, so seats a path takes from "Other" still stand out */
+  var POLLS = {
+    srf:   { tab: "SRF/Common Sense", when: "July 2026" },
+    ipsos: { tab: "Ipsos", when: "July 2026" },
+    sabi:  { tab: "News24/SABI", when: "Aug/Sep 2026" }
+  };
+
+  /* From metro-coalition-poll-data.xlsx. Seats = poll share x council size, rounded; Other = the rest of the council.
+     Johannesburg keeps the seats published in the original Joburg chart. null = not reported separately (counted in Other).
+     o = seats taken from Other in a suggested path. */
+  var METRO = { name: "Johannesburg", seats: 270, majority: 136,
+    order: ["DA", "ASA", "OTH", "EFF", "MK", "ANC"],
+    polls: [
+      { id: "srf", seats: { DA: 113, ASA: 27, EFF: 22, MK: 35, ANC: 49, OTH: 24 },
+        paths: [{ p: ["DA", "ASA"], o: 0 }, { p: ["DA", "MK"], o: 0 }, { p: ["DA", "ANC"], o: 0 }, { p: ["DA"], o: 24 }, { p: ["ANC", "MK", "EFF", "ASA"], o: 3 }] },
+      { id: "ipsos", seats: { DA: 76, ASA: 38, EFF: 21, MK: 16, ANC: 84, OTH: 35 },
+        paths: [{ p: ["DA", "ASA"], o: 22 }, { p: ["ANC", "ASA", "EFF"], o: 0 }, { p: ["ANC", "ASA"], o: 14 }, { p: ["DA", "ANC"], o: 0 }] },
+      { id: "sabi", seats: { DA: 79, ASA: 19, EFF: 30, MK: 33, ANC: 61, OTH: 48 },
+        paths: [{ p: ["DA", "EFF", "ASA"], o: 8 }, { p: ["ANC", "EFF", "ASA"], o: 26 }, { p: ["DA", "ANC"], o: 0 }] }
+    ] };
+
+  /* Hemicycle: rows chosen so seats sit evenly along and across rows; positions in % of a 1000 x 530 box. */
+  function seatLayout(N) {
+    var CX = 500, CY = 495, R0 = 172, EDGE = 494.6, K = 0.427;
+    var best = null;
+    for (var rows = 6; rows <= 14; rows++) {
+      var R1 = 480, dot = 14.6, radial = 0, arc = 0;
+      for (var it = 0; it < 30; it++) {
+        radial = (R1 - R0) / (rows - 1);
+        arc = Math.PI * rows * (R0 + R1) / 2 / N;
+        dot = K * Math.min(radial, arc);
+        R1 = EDGE - dot;
+      }
+      var score = Math.abs(Math.log(arc / radial));
+      if (!best || score < best.score) best = { rows: rows, R1: R1, dot: dot, score: score };
+    }
+    var radii = [];
+    for (var i = 0; i < best.rows; i++) radii.push(R0 + (best.R1 - R0) * i / (best.rows - 1));
+    var sumR = radii.reduce(function (a, b) { return a + b; }, 0);
+    var counts = radii.map(function (r) { return Math.floor(N * r / sumR); });
+    var rem = N - counts.reduce(function (a, b) { return a + b; }, 0);
+    radii.map(function (r, i) { return [N * r / sumR - counts[i], i]; })
+      .sort(function (a, b) { return b[0] - a[0]; })
+      .slice(0, rem)
+      .forEach(function (e) { counts[e[1]]++; });
+    var pts = [];
+    radii.forEach(function (r, i) {
+      var n = counts[i];
+      for (var j = 0; j < n; j++) {
+        var a = n === 1 ? Math.PI / 2 : Math.PI * (1 - j / (n - 1));
+        pts.push({ x: CX + r * Math.cos(a), y: CY - r * Math.sin(a), a: a });
+      }
+    });
+    pts.sort(function (p, q) { return q.a - p.a || p.y - q.y; });
+    var size = (best.dot / 5).toFixed(2);
+    return pts.map(function (p) { return { left: (p.x / 10).toFixed(2), top: (p.y / 5.3).toFixed(2), size: size }; });
+  }
+
+  var state = { pollId: METRO.polls[0].id, picked: [], oth: 0, activePath: -1 };
+
+  var root = document.querySelector(".emb");
+  var tabsEl = document.getElementById("tabs");
+  var seatsEl = document.getElementById("seats");
+  var tallyEl = document.getElementById("tally");
+  var chipsEl = document.getElementById("chips");
+  var pathsEl = document.getElementById("paths");
+
+  function currentPoll() {
+    for (var i = 0; i < METRO.polls.length; i++) if (METRO.polls[i].id === state.pollId) return METRO.polls[i];
+    return METRO.polls[0];
+  }
+  function seatsOf(poll, k) { return poll.seats[k] || 0; }
+  function has(list, k) { return list.indexOf(k) >= 0; }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  /* Poll tabs */
+  var tabBtns = METRO.polls.map(function (p) {
+    var b = el("button", "tab");
+    b.type = "button";
+    b.appendChild(el("span", "tab-name", POLLS[p.id].tab));
+    b.appendChild(el("span", "tab-when", POLLS[p.id].when));
+    b.addEventListener("click", function () {
+      if (state.pollId === p.id) return;
+      state = { pollId: p.id, picked: [], oth: 0, activePath: -1 };
+      render();
+    });
+    tabsEl.appendChild(b);
+    return b;
+  });
+
+  /* Seats: built once, recoloured on every change */
+  var seatEls = seatLayout(METRO.seats).map(function (pt) {
+    var s = el("span", "seat");
+    s.style.left = pt.left + "%";
+    s.style.top = pt.top + "%";
+    s.style.width = pt.size + "%";
+    seatsEl.appendChild(s);
+    return s;
+  });
+
+  /* Party chips and paths: rebuilt when the poll changes, updated in place otherwise */
+  var builtFor = null, chipEls = {}, pathBtns = [];
+
+  function pathLabel(poll, pt) {
+    var s = pt.p.map(function (k) { return PARTIES[k].name; }).join(" + ");
+    if (pt.p.length === 1 && !pt.o) s += " alone";
+    if (pt.o) s += pt.o === poll.seats.OTH ? " + Other" : " + " + pt.o + " of Other";
+    return s;
+  }
+
+  function pickParty(k) {
+    var poll = currentPoll();
+    var othAll = poll.seats.OTH || 0;
+    if (state.activePath >= 0) {
+      /* a path is showing: start a fresh selection with this party */
+      if (k === "OTH") { state.picked = []; state.oth = othAll; }
+      else { state.picked = [k]; state.oth = 0; }
+    } else if (k === "OTH") {
+      state.oth = state.oth > 0 ? 0 : othAll;
+    } else {
+      state.picked = has(state.picked, k) ? state.picked.filter(function (x) { return x !== k; }) : state.picked.concat(k);
+    }
+    state.activePath = -1;
+    render();
+  }
+
+  function buildPollParts(poll) {
+    chipsEl.textContent = "";
+    chipEls = {};
+    /* most projected seats first, then Other, then any party this poll did not report separately */
+    var ranked = METRO.order.filter(function (k) { return k !== "OTH" && poll.seats[k] != null; })
+      .sort(function (a, b) { return poll.seats[b] - poll.seats[a]; });
+    var order = ranked.concat(
+      METRO.order.filter(function (k) { return k === "OTH"; }),
+      METRO.order.filter(function (k) { return k !== "OTH" && poll.seats[k] == null; })
+    );
+    order.forEach(function (k) {
+      var party = PARTIES[k], n = poll.seats[k], c;
+      if (n == null) {
+        c = el("div", "chip-nr");
+        c.setAttribute("role", "group");
+        c.setAttribute("aria-label", party.name + ": not reported separately in this poll, so its support is counted in Other");
+        c.title = "Not reported separately in this poll, so its support is counted in Other";
+      } else {
+        c = el("button", "chip");
+        c.type = "button";
+        c.addEventListener("click", function () { pickParty(k); });
+      }
+      var sw = el("span", "swatch");
+      sw.setAttribute("aria-hidden", "true");
+      sw.style.background = party.color;
+      c.appendChild(sw);
+      c.appendChild(el("span", "chip-name", party.name));
+      c.appendChild(el("span", "chip-n", n == null ? "in Other" : String(n)));
+      chipsEl.appendChild(c);
+      chipEls[k] = c;
+    });
+
+    pathsEl.textContent = "";
+    pathBtns = poll.paths.map(function (pt, i) {
+      var label = pathLabel(poll, pt);
+      var total = pt.p.reduce(function (a, k) { return a + seatsOf(poll, k); }, 0) + pt.o;
+      var b = el("button", "path");
+      b.type = "button";
+      b.setAttribute("aria-label", label + ": " + total + " seats");
+      b.appendChild(el("span", "path-label", label));
+      b.appendChild(el("span", "path-n", String(total)));
+      b.addEventListener("click", function () {
+        state.picked = pt.p.slice();
+        state.oth = pt.o;
+        state.activePath = i;
+        render();
+      });
+      pathsEl.appendChild(b);
+      return b;
+    });
+    builtFor = poll.id;
+  }
+
+  function render() {
+    var poll = currentPoll();
+    if (builtFor !== poll.id) buildPollParts(poll);
+    var picked = state.picked, oth = state.oth;
+    var any = picked.length > 0 || oth > 0;
+    root.classList.toggle("in-path", state.activePath >= 0);
+
+    tabBtns.forEach(function (b, i) { b.setAttribute("aria-pressed", METRO.polls[i].id === poll.id ? "true" : "false"); });
+    pathBtns.forEach(function (b, i) { b.setAttribute("aria-pressed", i === state.activePath ? "true" : "false"); });
+
+    Object.keys(chipEls).forEach(function (k) {
+      var c = chipEls[k], n = poll.seats[k];
+      if (n == null) { c.classList.toggle("is-faded", any); return; }
+      var inN = k === "OTH" ? oth : (has(picked, k) ? n : 0);
+      var on = inN > 0, partial = k === "OTH" && on && inN < n;
+      c.setAttribute("aria-pressed", on ? "true" : "false");
+      c.classList.toggle("is-faded", any && !on);
+      c.querySelector(".chip-n").textContent = partial ? inN + "/" + n : String(n);
+      c.setAttribute("aria-label", PARTIES[k].name + ": " + n + " projected seats" + (partial ? ", " + inN + " of them in this coalition" : ""));
+    });
+
+    /* all grey until something is picked; then the coalition fills from the left in party colours */
+    var seq = [];
+    METRO.order.filter(function (k) { return has(picked, k); }).forEach(function (k) {
+      for (var i = 0; i < seatsOf(poll, k); i++) seq.push([k, true]);
+    });
+    for (var i = 0; i < oth; i++) seq.push(["OTH", true]);
+    METRO.order.forEach(function (k) {
+      if (has(picked, k)) return;
+      var n = k === "OTH" ? poll.seats.OTH - oth : seatsOf(poll, k);
+      for (var j = 0; j < n; j++) seq.push([k, false]);
+    });
+    seatEls.forEach(function (s, i) {
+      var k = seq[i] ? seq[i][0] : "OTH", inC = seq[i] ? seq[i][1] : false;
+      s.style.background = !any ? EMPTY_SEAT : (inC ? PARTIES[k].color : OUT_SEAT);
+      s.title = PARTIES[k].name + ": " + poll.seats[k] + " seats";
+    });
+
+    tallyEl.textContent = String(picked.reduce(function (a, k) { return a + seatsOf(poll, k); }, 0) + oth);
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
