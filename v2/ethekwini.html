@@ -1,0 +1,1616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who can build a coalition in eThekwini?</title>
+<link rel="preload" href="fonts/DMCustomMar2026-V2-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="description" content="Daily Maverick interactive: pick parties to see which coalitions reach a majority on the council, by poll.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@87.5,700;100,500&amp;family=Geist:wght@100..900&amp;display=swap">
+<style>
+/* DM Custom headline font, bundled with the embeds in fonts/ */
+@font-face{font-family:"DM Custom";src:url("fonts/DMCustomMar2026-V2-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:block}
+/* eThekwini v5 (from Johannesburg v25): v25's look and motion, drawn for eThekwini. The headline asks Who can build a coalition in eThekwini?, the board holds the council's 222 seats with 112 for a majority, and the party rows are DA, IFP, ActionSA, Other, ANC, EFF and MK: seven rows, so each row's least height on wider screens drops from 58px to 50px (as in the four-metro embed v5) and the half circle keeps the box's full width. ActionSA, not reported separately in the SRF/Common Sense and News24/SABI polls, shows as Not reported there, as in v25. About this poll gives each poll's eThekwini sample, margin of error and, for SRF/Common Sense, its eThekwini results page. Everything else is v25 as it stands. */
+/* v25: v24 with a minus and a plus on the Other row, so a coalition can take any number of Other's seats, from none of them to all of them (35 in the Ipsos poll, 24 and 48 in the others). The two round buttons, white and ringed in black like the box, sit between Other's dotted leader and its count. A click takes one of Other's seats out of the coalition or adds one, Enter or Space does the same from the keyboard, and held down they keep going, slowly at first and then faster and faster, until they are let go, the pointer slides off them, or Other is all out or all in; each button greys out at its end. The count beside them reads the seats in the coalition over Other's total, 12/35 say, the total smaller and in warm grey as in the tally (35/35 while the intro shows every seat), and the row's pegs agree: as many stand as are in, and the rest lie flat and faded. Other's first seat goes on the end of the coalition's stack and the rest join it there, so on the half circle each press raises or sinks the peg at the coalition's end (or, where Other sits mid-stack, moves the parties after it along by a seat). A click on Other's name, pegs or count still takes all of Other in, or all of it out, and while any of it is in, the count turns into v24's X under a mouse pointer; over the minus and plus the count stays a number. Switching polls keeps a part of Other at the same count, no more than the new poll's Other holds, and all of Other stays all of it (before, Other always took the new poll's whole share). */
+/* v24: v21 made light enough to run smoothly on a phone, with the same look and the same motion. In v21 every peg was built from page elements: four for each seat on the half circle (its hole, foot, side and top, with its shadow on top of that) and one for each seat in the party rows, about 1,350 elements in all, each running springs of its own. Several of those springs moved custom properties that a browser can only work out on the main thread, so a click restyled and repainted hundreds of elements on every frame of the wave, and once a coalition held a majority the hop (While it holds) kept the whole board doing that for as long as it held. Now the half circle is one canvas and each party row's pegs another, and the script draws them (PegPainter): every seat's shadow, hole, foot, side, top and outline is drawn from the same measures, colours and tweaks as v21's CSS, and moves on the same springs (the Pop and Settle curves, from the same stops), the same wave and eases, the same 120ms colour fades and the same hop, so nothing looks or moves differently. The canvases are drawn only while something is moving, rest once it has settled, and stop while the embed is scrolled out of view, picking up where they were when it comes back; every peg is drawn as an exact shape at the screen's own pixels, one for one (twice them on a 1x screen), so the pegs are as crisp as v21's. With the pegs off the page, a tap now redraws a handful of buttons rather than every peg. A mouse over a seat still names its party, through the chart's title. Archivo now loads only the cuts the embed uses (semi-condensed Bold, and regular-width Medium for the Not reported note) instead of the whole variable font, so a phone has less to download before the tabs and the flag can draw. The notes for v10 to v21 below still describe how the pegs look and move; what they say of the pegs' CSS is now the drawing code in the script. Revised: the i now sits in the box's top left-hand corner, and its old place in the top right-hand corner holds a refresh button, a black refresh arrow on a white disc that turns light grey under a mouse pointer, which takes every party out at once (Other too) and ends the intro if it is still running, so the board sinks back empty in the usual wave, the tally drops to 0 and the reader can start again. And under a mouse pointer a picked party's seat count turns into an X, to show that a click takes the party out; the number comes back when the pointer leaves. Keyboard focus shows the X too; touch screens, which have no hover, keep the number. */
+/* v21: v20 with a divider under the half circle and the tally rising in after the intro. A 1px black rule now runs across the box under the half circle, with 12px clear above and below it, so the chart and the party rows read as two parts of the box. While the intro holds the full board, the tally (0/136) is out of sight; as the board drains, it rises up into place from behind a mask the size of its own line, easing out over the Wave time after a short wait, so the count arrives as the seats clear. Switching polls with nothing picked replays the intro and the rise; with the Intro tweak Off, or for readers who ask for reduced motion, the tally simply stands in place. */
+/* v20: v19 with the party labels' states split between hover and pick. At rest a label is plain text, as in v19. Under a mouse pointer an unpicked label's white button pops up, raised on the pegs' pop spring with its hairline edge and soft drop shadow, the way v19's picked button did, and sinks back to plain text when the pointer leaves. Picked, the button turns black (the poll tabs' #181818) with white letters and stays raised, shadow and all, for as long as the party is in the coalition; left out, it drops back flat and the letters go back to ink (to the white button, if the pointer is still on it). Phones and other touch screens have no hover, so a tap goes straight to the black button. A press still dips the button at once, and the fill changes in .15s so a click turns it black straight away. In the intro every label starts as a raised black button and drops back to plain text as the drain's wave reaches its party. Revised: the labels are set in Geist Regular (400) rather than Bold, and their size, weight, letter-spacing and line height are tweaks under Labels (Label size, Label weight, Letter spacing, Line height); the labels are one line each, so the line height sets how tall the button is around them. Geist now loads as its variable font, so any weight from 100 to 900 draws true. */
+/* v19: v18 with the party logos taken back out. Each party row now starts with the party's initials, DA, EFF, MK and ANC, set in Geist Bold in ink (ActionSA, which has no initials, keeps its name, and Other stays Other), as plain text on the page. Picked, a party's label turns into a white button (revised: at first the letters themselves popped up and cast the shadow): a white key the width of the column, with 6px corners and the letters in it, rises a little (4px, the Label pop tweak) and swells a touch on the same spring the pegs stand up on, with a faint hairline round its edge and a soft drop shadow falling straight down the page, the way the pegs' shadows fall; left out, it settles back flat with the pegs' smaller bounce, its fill, edge and shadow fade, and the label is plain text again. The labels draw 17px at every width (revised: from 26px, and 22px on phones, then 14px); the size and letter-spacing are set on each row's mark, so the properties panel can change them, the button's height follows the size, and a label too long for its button draws just small enough to fit it, as ActionSA does on phones. The Label size, Label pop and Label shadow tweaks set them; a press still dips the label at once, and under a mouse pointer an unpicked label lifts by a pixel. Also revised: the About this poll panel closes on any click or tap that isn't on the i or on one of the panel's links, or when the reader clicks away from the embed, and the i, moved down into the box's top right-hand corner, is pinned to the box's right edge so it stays in that corner at every width. */
+/* v18: v17 with the party logos in place of the names. Each party row now starts with the party's logo, standing on the page with no button around it (Other, which has no logo, keeps its name, set in DM Custom in warm grey). Picked, a logo pops up: it rises 4px (the Pop tweak) and swells a touch on the same spring the pegs stand up on, and casts a soft drop shadow straight down the page, the way the pegs' shadows fall, so it reads as a cut-out lifted off the paper; left out, it settles back flat with the pegs' smaller bounce and its shadow fades. The shadow follows each logo's own outline. Logos draw 42px tall (52px on phones, where the rows are taller and the logo column grows from 68px to 76px), or less where a row is too short, and each is drawn at its optical size: the tall DA and ANC marks take the full height and the wide EFF and ActionSA ones draw smaller, so no logo outweighs its neighbours. The Logo size tweak scales them all. A press dips the logo at once, and under a mouse pointer a logo lifts by a pixel. Revised: the logos' shadows and then the pegs' shadows are lighter and soft-edged, and the sun stands higher over the board (75° up, from about 68°), so the pegs' shadows fall shorter; the Shadow tweaks (under Logos and under Pegs) and the Sun angle tweak set them. */
+/* v17: v16 turned back over inside the box: the half circle now sits at the top, under the tab rule, with the party rows below it. The box's top padding drops from 46px to 8px (the i button now sits above the tabs, so there is nothing to clear), and the chart keeps its 40px band above the half circle so the Majority flag still has room. The half circle takes the box's full width wherever the height allows. On desktop the rows keep their 58px and the half circle gives way, drawing a little narrower than the box, as before. On phones the width holds the half circle back, so the party rows now take all the height it leaves: the six rows share that height evenly, and their pegs grow to fill it. How many rows of pegs each party gets, and so how many columns, is picked by the script for the room the rows actually have (it tries every count and keeps the one that gives the biggest pegs; on a 358px phone that is seven rows of 17 columns of 7px pegs, up from five rows of 23 columns of 5px), and the CSS then sets the biggest whole-pixel peg that fits both across a row and down it, so a peg never outgrows its row whatever the title, fonts or screen do. */
+/* v16: v15 made lighter so clicks land at once, with the same look. The cast shadows are drawn by the pegs themselves (each peg's ::after, sitting under every peg), so the board has 270 fewer elements to redraw on every click and 270 fewer hop animations. The majority hop runs as a short burst, about two seconds after the wave crosses the dashed line, and then settles, instead of looping for as long as the majority holds, which kept the whole board busy on every frame; the Hop length tweak's While it holds brings back v12's loop. The hop's swell is set on the coalition's pegs rather than on the whole box, so it no longer restyles the party rows and everything else on every frame. The row pegs take their colour from their row and draw their side and outline in four layers instead of six. A press shows straight away, before the board redraws: a party button dips and a poll tab darkens under the finger, and taps skip the browser's double-tap wait. Each peg's place on the board and its hop timing are worked out once, not on every click. */
+/* v15: v14 with an intro that shows how the embed works. The board opens full and standing still: every party's seats up in party colours, stacked round the half circle in the order of the party rows (largest first, Other last), with every party row lit and its button lifted, as though every party had been picked. Once half the chart is on screen it holds for the Hold time tweak (1s by default), then drains: the seats sink in a wave that runs from the right end back round to the left, the way they go when parties are taken out, and each row drains from its right and drops its button flat as the wave first reaches its party's seats, so the rows empty from the bottom up. Nothing animates in and nothing hops. Then it all sits empty and waits for a click. The tally stays at 0 and the Majority flag stays down throughout, since nothing has been picked. A click on a party at any point ends the intro, and the reader's own coalition takes over from whatever is standing; switching polls with nothing picked shows that poll's full board at once, standing still, and drains it the same way (with parties picked they carry over as in v12, and nothing replays). The Intro tweak runs it on view and on poll switches (the default), on view only, or never; readers who ask for reduced motion get v14's empty board. */
+/* v14: v13 with the coalition stacking in the order you pick it, and a quicker, eased wave. Parties no longer slot into a fixed order with the DA always first from the left: the first party you pick takes the seats from the left end, and each party you add stacks on after the coalition already standing, so only the open seats it fills rise, in a sweep from the end of the coalition round to the new end, and nothing already standing changes colour. Take a party out and its seats sink back from the right; if it sat in the middle of the stack, the parties picked after it close the gap. Other stacks wherever it was picked too. The wave is quicker (a sweep round the whole half circle now takes 600ms, down from 800ms) and eased: the Wave ease tweak sets how each sweep gathers pace and slows, and by default it starts and ends gently (cubic-bezier(.65, 0, .35, 1)), with options for a gentle start only, a gentle end only, or v13's even pace. The party rows run on the same ease, so a party's bar still fills in step with its seats on the arc. */
+/* v13: v12 with the pegs moving in waves instead of all at once. Pick a party and the pegs in its row rise column by column from the left, while its seats on the half circle rise in a sweep that runs clockwise from the left end, up over the top and round to the right. Leave a party out and it all runs the other way: its row sinks back from the right, and its seats on the half circle sink in a sweep that runs counter-clockwise, back towards the left end. Each sweep starts at the first peg that changes, so adding a party sweeps across that party's seats only, with no wait for the wave to travel round from the left end of the board. Pegs that only change colour (when a party is pushed along the arc by one ordered ahead of it) fade over in the same sweep, and every peg's top, side, outline and hole now change colour when the wave reaches it rather than on the click. A sweep round the whole half circle takes the Wave time tweak (800ms by default; 0 brings back the old all-at-once pop), and the rows run at the same pace per seat, so a party's bar fills in step with its seats on the arc. When a click wins or loses the majority, the Majority flag waits for the sweep to cross the dashed line before it rises or drops, and on a win the board starts hopping at that moment too. */
+/* v12: v11 with the picked parties kept when you switch polls. Pick DA and ANC, say, then flick between the poll tabs: the same parties stay picked and the board, rows and tally redraw with that poll's seats (the rows still re-sort by size). "Other", if picked, stays picked and takes the new poll's whole Other share. A party a poll does not report separately drops out of the selection for that poll only. The party rows also get more room: 12px of padding each side (8px on phones), wider gaps between the dots (3.5px, up from 2px; 2px on phones, up from 1.5px) and one more row of dots per party (four, or five on phones), so each bar is shorter and taller. Each party row grows from 46px to 58px (48px to 52px on phones) and the half circle takes whatever height is left, so it draws a little smaller. Once the parties picked hold a majority, the coalition's pegs hop in their holes, each on a loop of its own, so the board bubbles with activity; when the coalition drops below the majority again they settle back into their seats (the Hop height and Hop speed tweaks, under Majority). The pegs in the party rows are now exact circles of one size, stand well out of the ground while their party is picked (1.8 times their width, up from 0.72), and hold still at that height; only the half circle hops. */
+/* v11: v10's peg board drawn with flat toon shading instead of a photographic finish. Every peg is three flat pieces: a round top in the party colour, a side in one flat, darker tone of that colour, and a hairline outline in a deep shade of the same colour (the outlines tweak switches to black ink or to no lines). The light sits high at twelve o'clock, behind the board, so each picked peg casts a short, flat, pale shadow straight down the screen towards the reader; the holes are a flat dark tone. Nothing is blurred, blended or clipped, and every movement is a plain move or stretch, so the board stays light to draw. Same layout, springs and Majority pin as v10, but the camera looks down at 80 degrees (the cameraAngle tweak; 90 is straight down), nearly from above with just a little of each peg's side showing. Before anything is picked every peg sits just below the board's surface (and the party rows' pegs lie flush); clicking a party makes its pegs pop up, while the rest stay sunk. Empty, sunk pegs are almost white, with a fainter hairline and the faintest hole, so they all but disappear into the page and only the picked pegs carry strong colour, outlines and dark sockets. */
+/* v10: v9 with every round made physical. The seat chart is a white board of pegs seen from a camera tipped back 40 degrees, so each seat shows its round top, its side and its shadow (the cameraTilt tweak sets the angle; pegHeight scales how far the pegs travel). Before anything is picked every peg stands a little proud of its hole in tan. Picked parties' pegs pop up in party colours the moment you click, overshoot a touch and wiggle once into place, and every other peg sinks into its hole in pale tan with a smaller bounce; the party buttons and the Majority flag move on the same springs. The dots in the party rows are the same pegs in miniature: they stand taller while their party is picked and sink flush when it is left out. The Majority flag now stands on a pin pushed into the far end of the dashed line. */
+/* v9: v8 turned over inside the box: the party stack now sits at the top, under the tab rule, with the half-circle seat chart below it. The box's top padding grows from 30px to 46px so the first row clears the i button, and the chart keeps a 40px band above the half circle so the Majority flag always has room without touching the stack. Each party button can also carry the party's logo (LOGOS in the script): a party with a logo shows it in place of its name, and parties without one keep their names. */
+/* v8: v7 with rounder party buttons (6px corners, up from 3px) and each party's name centred in its button, and a bigger Majority flag (13px type, up from 10.5px; 11.5px on phones) with 5px corners that shows only while the parties picked hold a majority. The flag fades and rises in place rather than leaving the layout, so nothing moves and the embed keeps its fixed height. */
+/* v7: v6 with the seat chart and the party rows inside a box that hangs from the poll tab rule (the 3px rule is its top edge; its sides and bottom are a thinner 1.5px black, with square corners at the top and 8px rounded corners at the bottom; the first and last poll tabs round their outer top corners to match, and every other corner is square), a black button with a white letter i in place of the eye, and no divider lines between the party rows. The i is DM Custom's own glyph drawn as a shape with its ink box centred on the button, so it sits dead centre whatever font metrics the browser uses. DM Custom carries the headlines, the party names and the i (ActionSA fits at 20px, 16.5px on phones), Archivo the small capital labels, and Geist every number. Party colours are data and stay as they are. */
+body{margin:0;background:#ffffff}
+a{color:#a61212}a:hover{color:#171717}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:2px solid #d33d3d;outline-offset:-2px}
+.e-eye:focus-visible,.e-reset:focus-visible{outline:none}.e-eye:focus-visible span,.e-reset:focus-visible span{outline:2px solid #d33d3d;outline-offset:2px}
+.chip,.tab{transition:background-color .15s ease,opacity .3s ease}
+@media (hover: hover){.tab.is-idle:hover{background-color:#e9e9e9 !important}.chip:hover .mark:not(.is-on) .mark-art{background-color:#ffffff;transform:translateY(calc(-1 * var(--pop,4px))) scale(1.03);box-shadow:0 0 0 1px rgba(40,32,24,.08),0 1px 2px rgba(40,32,24,calc(.1 * var(--lsh,1))),0 calc(var(--pop,4px) * .75 + 2px) 10px rgba(40,32,24,calc(.14 * var(--lsh,1)));transition-timing-function:cubic-bezier(.2,1.6,.4,1),ease,ease,ease;transition-timing-function:linear(0, 0.095 2%, 0.269 4.8%, 0.659 10.7%, 0.835 13.7%, 0.958 16.3%, 1.052 18.9%, 1.118 21.5%, 1.16 24.3%, 1.176 27.6%, 1.161 31.7%, 1.083 39.6%, 1.01 47.4%, 0.978 54.1%, 0.973 62.8%, 1.004 85.7%, 1),ease,ease,ease}.chip.is-faded:hover{opacity:.75 !important}.e-eye.is-closed:hover span{background:#3d3d3d !important;border-color:#3d3d3d !important}.e-reset:hover span{background:#e9e9e9 !important}.e-info a:hover{color:#d4d4d4 !important}.chip.is-picked:hover .cnt-n{opacity:0}.chip.is-picked:hover .cnt-x{opacity:1}.chip.is-picked:hover .cnt-x svg{transform:scale(1)}}
+.chip.is-faded:focus-visible{opacity:1 !important}
+/* v16: a press shows at once, before the board redraws: a party's mark dips (v19: the letters themselves, on the separate scale property, so it never fights the pop) and a poll tab darkens under the finger, and touch taps skip the browser's double-tap wait */
+button{touch-action:manipulation}
+.chip:active .mark-art{scale:.94}
+.tab.is-idle:active{background-color:#d4d4d4 !important;transition-duration:0s !important}
+.e-reset:active span{background:#d4d4d4 !important;transition-duration:0s !important}
+/* Motion (from v10): everything that moves when you click shares two springs, written out as linear() curves (a browser without linear() keeps the cubic-bezier declared before it). Pop: on target in about 80ms, overshoots by about a sixth, dips back once and has settled by 460ms; for pegs and buttons going up and for the Majority flag. Settle: just as quick, with one smaller bounce; for pegs sinking into their holes and buttons dropping back flat. v24: the pegs run the same two curves in the script (CURVE.pop and CURVE.settle). */
+/* The Majority flag over the dashed line stays hidden until the parties picked reach a majority, then fades in and rises off the line on the same spring the party buttons lift with. */
+.e-maj{transition:opacity .12s ease,transform .46s cubic-bezier(.2,1.6,.4,1),visibility .46s;transition-delay:var(--majd,0ms);transition-timing-function:ease,linear(0, 0.095 2%, 0.269 4.8%, 0.659 10.7%, 0.835 13.7%, 0.958 16.3%, 1.052 18.9%, 1.118 21.5%, 1.16 24.3%, 1.176 27.6%, 1.161 31.7%, 1.083 39.6%, 1.01 47.4%, 0.978 54.1%, 0.973 62.8%, 1.004 85.7%, 1),ease}
+/* The flag's pin runs from the flag down to the board at the far end of the dashed line (--stick is that reach below the top of the chart). It is drawn before the pegs, so pegs in front of it hide its foot. */
+.e-maj::after{content:"";position:absolute;left:50%;top:100%;width:2px;margin-left:-1px;height:calc(14px + var(--stick));background:#181818}
+/* About this poll: the i in the box's top left-hand corner (v24 revised; it sat in the top right-hand corner, where the refresh button now is), under the start of the tab rule, drops a black panel down from that rule. It lies over the box and follows whichever poll is chosen until the i is pressed again, or (v19) until a click or tap lands anywhere but the i or one of the panel's links (watchInfo in the script). */
+.e-info{animation:e-drop .28s cubic-bezier(.2,.7,.2,1) both}
+@keyframes e-drop{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+/* v17: the half circle sits at the top of the box. The chart is as tall as the half circle at the box's full width, plus the 40px band for the Majority flag, and gives up height when the party rows below need it (their least is --rowmin a row: 50px, 52px on phones; eThekwini v5 took the desktop figure down from 58px so its seven rows keep the half circle at full width); the half circle then draws narrower, centred. --chin is the box's inset from the embed's edge, both sides together: the side padding, the box's 1.5px sides and its inner padding (20 + 1.5 + 16px a side; 14 + 1.5 + 14px on phones). */
+.e-box{--chin:75px}
+/* v17: the party section takes all the height under the half circle, with 12px between them, and is a size container, so the rows can size their pegs against both its width and its height */
+.e-parties{--rowmin:50px;min-height:calc(var(--nrows,6) * var(--rowmin))}
+/* Party rows sit inside the party section with --rp of padding of their own each side (12px, 8px on phones), and share its height evenly (v17): party name, one peg per projected seat (filled column by column so each party reads as a bar of pegs), a dotted leader, then the seat count right-aligned in a column. --rows is how many rows of pegs each party gets and --cols the columns the largest party in any poll then needs (Johannesburg: 113 seats), so pegs keep one size across parties and polls. v17: the script picks --rows and --cols for the room the rows have (--fit-rows and --fit-cols); until it has measured, 4 rows of 29 columns, or 7 rows of 17 on phones. --dot is the biggest peg that fits across a row (100cqw is the section's width) and down it (100cqh / --nrows is a row's height, keeping --air clear and room for a picked peg to stand), capped at --dmax; the dotted leader takes up any slack. v12: every peg top is an exact circle a whole number of pixels across (rounded down, where the browser can round), with whole-pixel gaps (--dg across, --dv down), so every peg lands on the pixel grid the same way and none is drawn as an oval. A party's mark (v19: its initials) hangs 8px into the rows' padding, centred in its column. v24: once the script has measured the rows it also sets --fit-dot, the peg size it worked out the same way, so the CSS and the canvas that draws the pegs always agree on it. */
+.e-rows{--name:96px;--g:8px;--count:42px;--dg:4px;--dv:4px;--rows:var(--fit-rows,4);--cols:var(--fit-cols,29);--dmax:9px;--rp:12px;--air:8px;--dot:var(--fit-dot,min(var(--dmax),calc((100cqw - 2 * var(--rp) - var(--name) - 2 * var(--g) - var(--count) - (var(--cols) - 1) * var(--dg)) / var(--cols)),calc((100cqh / var(--nrows,6) - var(--air) - (var(--rows) - 1) * var(--dv)) / (var(--rows) + 1.8 * var(--hk,.174)))))}
+@supports (width:round(down,1.5px,1px)){.e-rows{--dot:var(--fit-dot,round(down,min(var(--dmax),calc((100cqw - 2 * var(--rp) - var(--name) - 2 * var(--g) - var(--count) - (var(--cols) - 1) * var(--dg)) / var(--cols)),calc((100cqh / var(--nrows,6) - var(--air) - (var(--rows) - 1) * var(--dv)) / (var(--rows) + 1.8 * var(--hk,.174)))),1px))}}
+/* v24: a party's pegs are drawn on a canvas laid over this box, which keeps the room v21's grid of pegs took: --pc columns (as many as the party's seats need, so each party's bar is as long as its share) and --rows rows of --dot pegs, --dg and --dv apart, with room above for a picked party's tops to rise into. The canvas reaches 4px past the box on every side, and further below for the shadows (ROW_PAD in the script). */
+.pdots{flex:none;position:relative;display:block;width:max(0px,calc(var(--pc,0) * var(--dot) + (var(--pc,0) - 1) * var(--dg)));height:calc(var(--rows) * var(--dot) + (var(--rows) - 1) * var(--dv) + var(--dot) * 1.8 * var(--hk,.174))}
+.e-pegs,.pdots canvas{display:block;pointer-events:none}
+/* v19: party marks are the parties' initials (the v19 note at the top has the whole story). Revised: at rest a label is plain text on the page; picked (is-on), its face (.mark-art) turns into a white button with the letters in it, rising --pop and swelling a touch on the pegs' pop spring, with a faint hairline round its edge and two soft shadows straight down the page, a tight one where it leaves the paper and a wider one a little below, in the same warm dark tone as v18's (the Label shadow tweak scales how dark the shadows are); left out, it settles back flat with the pegs' smaller bounce and its fill, edge and shadows fade. The fill and shadows run on a plain ease, so they never overshoot. v15: when the intro drains the board, a mark drops flat as the wave first reaches its party's seats on the half circle; --pd is that wait (0 at any other time). */
+/* v20: the white button now shows under a mouse pointer (in the hover rules near the top); picked, the button is black, the poll tabs' #181818, with white letters (their colour comes from the script and changes on .mark-name), and its fill changes in .15s so a click turns it black at once */
+.mark-art{background-color:rgba(255,255,255,0);transform:translateY(0) scale(1);box-shadow:0 0 0 0 rgba(40,32,24,0),0 0 0 0 rgba(40,32,24,0),0 0 0 0 rgba(40,32,24,0);transition:transform .46s cubic-bezier(.2,1.25,.4,1),box-shadow .3s ease,translate .15s ease,background-color .15s ease;transition-timing-function:linear(0, 0.069 1.3%, 0.195 3%, 0.591 7.8%, 0.746 10%, 0.859 12%, 0.945 13.9%, 1.012 16.1%, 1.055 18.5%, 1.075 21.5%, 1.065 25.9%, 1.007 36.7%, 0.994 46.1%, 1),ease,ease,ease;transition-delay:var(--pd,0ms),var(--pd,0ms),0ms,var(--pd,0ms)}
+.mark.is-on .mark-art{background-color:#181818;transform:translateY(calc(-1 * var(--pop,4px))) scale(1.03);box-shadow:0 0 0 1px rgba(40,32,24,.08),0 1px 2px rgba(40,32,24,calc(.1 * var(--lsh,1))),0 calc(var(--pop,4px) * .75 + 2px) 10px rgba(40,32,24,calc(.14 * var(--lsh,1)));transition-timing-function:cubic-bezier(.2,1.6,.4,1),ease,ease,ease;transition-timing-function:linear(0, 0.095 2%, 0.269 4.8%, 0.659 10.7%, 0.835 13.7%, 0.958 16.3%, 1.052 18.9%, 1.118 21.5%, 1.16 24.3%, 1.176 27.6%, 1.161 31.7%, 1.083 39.6%, 1.01 47.4%, 0.978 54.1%, 0.973 62.8%, 1.004 85.7%, 1),ease,ease,ease}
+/* v15: while the intro holds the full board (is-snap on the box) nothing on the board or in the rows transitions, so the board opens, or switches to a new poll, already standing in place; the drain then runs on the usual springs. v24: the pegs' canvases do the same. */
+.e-box.is-snap .mark-art,.e-box.is-snap .mark-name,.e-box.is-snap .e-tally-in,.e-box.is-snap .chip{transition:none !important}
+/* v21: the tally (0/136 and on) stands in a mask the size of its own line: its box clips along its bottom edge only. While the intro holds the full board (is-hidden) the tally waits out of sight below that edge; as the board drains it rises into place, easing out over --tlt (the Wave time, 400ms at least) after waiting --tld (a fifth of it); at any other time it simply stands in place. */
+.e-tally-in{transform:translateY(0);transition:transform var(--tlt,700ms) cubic-bezier(.16,1,.3,1) var(--tld,140ms)}
+.e-tally-in.is-hidden{transform:translateY(115%)}
+/* v20: how the labels draw, all of it set by the tweaks under Labels: Label size (--fs, in px), Label weight (--lfw), Letter spacing (--lls) and Line height (--llh). Revised from v19, where the size and letter-spacing sat on each row's mark and the labels were Bold: they are Regular now. A label's face (.mark-art, the button once hovered or picked) is the width of its column, with 8px of padding each side, and as tall as a line of the label plus .37em above and below it, so the line height sets how tall the button is; it takes that from the label size rather than from its own label, so every button matches even where a label has had to shrink. A label too long for its button draws just small enough to fit (--tw is its width in ems at the chosen weight and --tn its letter count less one, both from the script), and the letter-spacing after its last letter is taken back off, so it stays centred. Geist's capitals sit dead centre on any line height, so the letters need no nudge. */
+.mark{font-size:var(--fs,17px)}
+.mark-art{height:calc((var(--llh,1.2) + .74) * 1em)}
+.mark-name{font-size:min(1em,calc((var(--name) - 8px - var(--tn,0) * var(--lls,0px)) / var(--tw,1)));font-weight:var(--lfw,400);letter-spacing:var(--lls,0px);line-height:var(--llh,1.2);margin-right:calc(-1 * var(--lls,0px))}
+.mark-name{transition:color .15s ease var(--pd,0ms)}
+/* v24 revised: under a mouse pointer (the hover rules near the top) or keyboard focus, a picked party's seat count (.cnt-n) gives way to an X (.cnt-x), to show that a click takes the party out: the number fades out as the X fades in and pops up to full size on the pegs' pop spring, and both swap back when the pointer leaves. The number keeps its room while hidden, so nothing in the row moves. */
+.cnt-n{display:inline-block;transition:opacity .12s ease}
+.cnt-x{opacity:0;pointer-events:none;transition:opacity .12s ease}
+.cnt-x svg{transform:scale(.5);transition:transform .46s cubic-bezier(.2,1.6,.4,1);transition-timing-function:linear(0, 0.095 2%, 0.269 4.8%, 0.659 10.7%, 0.835 13.7%, 0.958 16.3%, 1.052 18.9%, 1.118 21.5%, 1.16 24.3%, 1.176 27.6%, 1.161 31.7%, 1.083 39.6%, 1.01 47.4%, 0.978 54.1%, 0.973 62.8%, 1.004 85.7%, 1)}
+.chip.is-picked:focus-visible .cnt-n{opacity:0}.chip.is-picked:focus-visible .cnt-x{opacity:1}.chip.is-picked:focus-visible .cnt-x svg{transform:scale(1)}
+/* v25: Other's minus and plus (the v25 note at the top has the whole story). --stw is the room the two buttons take in Other's row, between its dotted leader and its count, and --ocw the count's own width there, held steady so the buttons never shift as the count changes. The buttons lie over that room, outside the row's own button, so a press on them never toggles Other, and while the pointer is on them the count stays a number. A button at its end (none of Other's seats left to take out, or none left to add) greys out. Held down, they never select text or call up a phone's long-press menu. */
+.e-rows{--stw:76px;--ocw:54px}
+.oth-step{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.step{transition:opacity .15s ease}
+.step-face{transition:background-color .15s ease}
+.step.is-off{opacity:.28;cursor:default !important}
+.step:focus-visible{outline:none}.step:focus-visible .step-face{outline:2px solid #d33d3d;outline-offset:2px}
+@media (hover: hover){.step:not(.is-off):hover .step-face{background-color:#e9e9e9 !important}}
+.step:not(.is-off):active .step-face{background-color:#d4d4d4 !important;scale:.92;transition-duration:0s}
+/* Phones (embed narrower than 640px): the fixed height stays the same, only the arrangement inside changes. v17: the half circle takes the box's full width and the party rows take whatever height is left, their pegs sized to fill it. */
+@container emb (max-width: 639.98px){
+.e-pad{padding:18px 14px 8px !important}
+.e-kicker{font-size:10.5px !important;letter-spacing:.08em !important}
+.e-title{font-size:31px !important;margin-top:10px !important}
+.e-tabs{margin-top:16px !important}
+.tab{height:52px !important;padding:0 8px !important}
+.tab-name{white-space:normal !important;font-size:11px !important;letter-spacing:.03em !important}
+.tab-when{font-size:11px !important}
+.e-box{padding:8px 14px 12px !important;--chin:59px}
+.e-maj{font-size:11.5px !important;padding:4px 8px 3px calc(8px + 0.12em) !important}
+.e-parties{--rowmin:52px}
+.e-rows{--name:76px;--g:6px;--count:37px;--dg:2px;--dv:2px;--rows:var(--fit-rows,7);--cols:var(--fit-cols,17);--dmax:10px;--rp:8px;--stw:62px;--ocw:46px}
+.step{width:28px !important}.step-face{width:24px !important;height:24px !important}
+.cnt{font-size:16px !important}
+.chip-nr-note{font-size:12px !important}
+.e-info{padding:12px 14px 14px !important}
+.e-info-title{font-size:16px !important}
+.e-info-body{font-size:13px !important}
+.e-info-foot{font-size:12px !important}
+.e-facts{column-gap:20px !important}
+.e-fact dd{font-size:13px !important}
+}
+@media (prefers-reduced-motion: reduce){.e-box,.chip,.tab,.mark-art,.e-maj,.e-tally-in,.cnt-n,.cnt-x,.cnt-x svg,.e-reset span,.step,.step-face{transition:none !important}.e-info{animation:none !important}}
+</style>
+<style>html,body{margin:0;padding:0;background:#ffffff}</style>
+</head>
+<body>
+<div id="dc-root"></div>
+<template id="dc-tpl">
+
+<div style="max-width: {{frameMax}}; margin: 0 auto; background: #ffffff; color: #171717; font-family: Archivo, 'Helvetica Neue', Arial, sans-serif; container-type: inline-size; container-name: emb">
+  <div class="e-pad" style="height: 920px; box-sizing: border-box; padding: 22px 20px 10px; display: flex; flex-direction: column; overflow: hidden; position: relative">
+
+    <h1 class="e-title" style="flex: none; margin: 12px 0 0; font-family: 'DM Custom', DMCustom, Georgia, serif; font-weight: 700; font-size: 38px; line-height: 1.05; letter-spacing: -0.4px; color: #171717; text-wrap: balance; margin-top: 5px">Who can build a coalition in eThekwini?</h1>
+
+    <div class="e-tabs" style="flex: none; margin-top: 20px; position: relative; z-index: 3">
+      <div role="group" aria-label="Choose a poll" style="display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; border-bottom: 3px solid #181818">
+        <sc-for list="{{polls}}" as="p" hint-placeholder-count="3">
+          <button type="button" class="tab {{p.cls}}" aria-pressed="{{p.pressed}}" onClick="{{p.pick}}" style="height: 54px; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 0 12px; background-color: {{p.bg}}; color: {{p.fg}}; border: 0; border-radius: {{p.radius}}; cursor: {{p.cursor}}; text-align: left; line-height: 1.15">
+            <span class="tab-name" style="display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12.5px; font-weight: 700; font-stretch: 87.5%; letter-spacing: 0.06em; text-transform: uppercase">{{p.name}}</span>
+            <small class="tab-when" style="display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: Geist, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 400; color: {{p.sub}}">{{p.when}}</small>
+          </button>
+        </sc-for>
+      </div>
+      <sc-if value="{{infoOpen}}" hint-placeholder-val="{{ false }}">
+        <div id="{{infoId}}" class="e-info" role="region" aria-label="About this poll" style="position: absolute; left: 0; right: 0; top: 100%; box-sizing: border-box; padding: 14px 16px 16px; background: #181818; color: #ffffff; font-family: Geist, 'Helvetica Neue', Arial, sans-serif">
+          <p style="margin: 0; padding-right: 40px; font-family: Archivo, 'Helvetica Neue', Arial, sans-serif; font-stretch: 87.5%; font-weight: 700; font-size: 11px; line-height: 1; letter-spacing: 0.1em; text-transform: uppercase; color: #cdbfa7">About this poll</p>
+          <h2 class="e-info-title" style="margin: 7px 0 0; padding-right: 40px; font-size: 17px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; color: #ffffff">{{info.title}}</h2>
+          <p class="e-info-body" style="margin: 8px 0 0; font-size: 14px; font-weight: 400; line-height: 1.45; color: #d4d4d4; text-wrap: pretty">{{info.body}}</p>
+          <dl class="e-facts" style="margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #3d3d3d; display: flex; flex-wrap: wrap; column-gap: 24px; row-gap: 10px">
+            <sc-for list="{{info.facts}}" as="f" hint-placeholder-count="4">
+              <div class="e-fact" style="min-width: 0">
+                <dt style="font-family: Archivo, 'Helvetica Neue', Arial, sans-serif; font-stretch: 87.5%; font-weight: 700; font-size: 10.5px; line-height: 1; letter-spacing: 0.1em; text-transform: uppercase; color: #a3a3a3">{{f.k}}</dt>
+                <dd style="margin: 5px 0 0; font-size: 14px; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; color: #ffffff; white-space: nowrap">{{f.v}}</dd>
+              </div>
+            </sc-for>
+          </dl>
+          <p class="e-info-foot" style="margin: 12px 0 0; font-size: 12.5px; line-height: 1.45; color: #a3a3a3">Seat numbers are estimates: each party’s share in this poll applied to the council’s 222 seats. <a href="{{info.url}}" target="_blank" rel="noopener" style="color: #ffffff; text-underline-offset: 2px">{{info.linkText}}</a></p>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <div class="e-box {{boxCls}}" id="{{boxId}}" style="flex: 1 1 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column; padding: 8px 16px 14px; border: 1.5px solid #181818; border-top: 0; border-radius: 0 0 8px 8px; --majd: {{majd}}; --tlt: {{tallyT}}; --tld: {{tallyD}}">
+
+      <div class="e-chart" id="{{chartId}}" onMouseMove="{{hoverPeg}}" onMouseLeave="{{leavePeg}}" style="flex: 0 1 auto; min-height: 0; height: calc((100cqw - var(--chin)) * {{stage.k}} + 40px); position: relative; container-type: size">
+        <div class="e-stage" style="position: absolute; left: {{stage.left}}; top: {{stage.top}}; width: {{stage.w}}; height: {{stage.h}}; container-type: inline-size; --stick: {{stage.stick}}">
+          <div role="img" aria-label="{{chartLabel}}" style="position: absolute; inset: 0">
+            <div aria-hidden="true" style="position: absolute; left: 0; top: {{stage.boardTop}}; width: 100cqw; height: 53cqw; transform: scaleY({{stage.sq}}); transform-origin: 0 0">
+              <span style="position: absolute; left: 50cqw; top: 0.21cqw; height: {{stage.lineH}}; border-left: 1.5px dashed #181818; transform: translateX(-0.75px)"></span>
+            </div>
+          </div>
+          <div class="e-maj" style="position: absolute; left: 50%; bottom: calc(100% + 14px); transform: {{majTransform}}; transform-origin: 50% 100%; opacity: {{majOpacity}}; visibility: {{majVisibility}}; padding: 5px 10px 4px calc(10px + 0.12em); border-radius: 5px; background: #d33d3d; color: #ffffff; font-stretch: 87.5%; font-weight: 700; font-size: 13px; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap">Majority</div>
+          <canvas class="e-pegs" id="{{boardId}}" aria-hidden="true" style="position: absolute; left: {{stage.cvL}}; top: {{stage.cvT}}; width: {{stage.cvW}}; height: {{stage.cvH}}"></canvas>
+          <div aria-live="polite" style="position: absolute; left: 50%; bottom: calc({{stage.tallyBottom}} - 0.145em); transform: translateX(-50%); display: flex; align-items: baseline; clip-path: inset(-100% -100% 0 -100%); font-family: Geist, 'Helvetica Neue', Arial, sans-serif; font-size: clamp(24px, 9cqw, 60px); line-height: 1; color: #171717; white-space: nowrap"><span class="e-tally-in {{tallyCls}}" style="display: flex; align-items: baseline"><span style="font-weight: 700; letter-spacing: -0.04em; font-variant-numeric: tabular-nums">{{tally}}</span><span style="margin-left: 0.25em; font-size: max(11px, 0.3em); font-weight: 600; letter-spacing: 0; color: #5e574e">/{{majority}}</span></span></div>
+        </div>
+      <button type="button" class="e-eye {{eyeCls}}" aria-label="About this poll" aria-expanded="{{infoExpanded}}" id="{{eyeId}}" aria-controls="{{infoId}}" onClick="{{toggleInfo}}" style="position: absolute; top: -8px; z-index: 1; width: 44px; height: 44px; box-sizing: border-box; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 50%; color: #181818; cursor: pointer; left: -14px">
+        <span aria-hidden="true" style="width: 30px; height: 30px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px solid {{eyeRing}}; background: {{eyeBg}}; color: #ffffff; transition: background-color .15s ease, border-color .15s ease"><svg width="27" height="27" viewBox="-750 -750 1500 1500" aria-hidden="true" style="display: block; fill: currentColor"><path d="M123.9 369.7V322.9L79.9 319.9C74.5 319.3 69.7 316.8 65.4 312.4C61.1 308 58.9 302.7 58.9 296.5V-129.7H12.7L-120.4 -80V-39H-62.1V296.5C-62.1 302.7 -64.1 308 -68.1 312.4C-72.1 316.8 -76.7 319.3 -82.1 319.9L-123.9 322.9V369.7H123.9ZM50.9 -347.3C37 -362.2 20.2 -369.7 0.7 -369.7C-18.9 -369.7 -35.5 -362.2 -49.2 -347.3C-62.8 -332.3 -69.6 -314.1 -69.6 -292.6C-69.6 -271.2 -62.8 -252.8 -49.2 -237.5C-35.5 -222.2 -18.9 -214.6 0.7 -214.6C20.2 -214.6 37 -222.2 50.9 -237.5C64.9 -252.8 71.9 -271.2 71.9 -292.6C71.9 -314.1 64.9 -332.3 50.9 -347.3Z"></path></svg></span>
+      </button>
+      <button type="button" class="e-reset" aria-label="Clear the board" title="Clear the board" onClick="{{resetBoard}}" style="position: absolute; top: -8px; right: -14px; z-index: 1; width: 44px; height: 44px; box-sizing: border-box; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 50%; color: #181818; cursor: pointer">
+        <span aria-hidden="true" style="width: 30px; height: 30px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #ffffff; color: #181818; transition: background-color .15s ease"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="display: block; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round"><path d="M18.76 13.81a7 7 0 1 1-2.26-7.17l2 1.67"></path><path d="M18.5 3.8v4.5h-4.5"></path></svg></span>
+      </button></div>
+
+      <div class="e-divide" aria-hidden="true" style="flex: none; height: 0; margin-top: 12px; border-top: 1px solid #181818"></div>
+
+      <section class="e-parties" id="{{partsId}}" aria-label="Parties" style="flex: 1 1 0; margin-top: 12px; container-type: size; --nrows: {{nRows}}">
+        <div class="e-rows" style="height: 100%; box-sizing: border-box; padding: 0 var(--rp); display: grid; grid-template-rows: repeat(var(--nrows), minmax(0, 1fr)); --fit-rows: {{fit.rows}}; --fit-cols: {{fit.cols}}; --fit-dot: {{fit.dot}}; --hk: {{stage.hk}}; --fs: {{labelSize}}; --lfw: {{labelWeight}}; --lls: {{letterSpacing}}; --llh: {{lineHeight}}; --pop: {{labelPop}}; --lsh: {{labelShadow}}">
+          <sc-for list="{{makeup}}" as="mk" hint-placeholder-count="6">
+            <sc-if value="{{mk.clickable}}" hint-placeholder-val="{{ true }}">
+              <button type="button" class="{{mk.cls}}" aria-pressed="{{mk.pressed}}" aria-label="{{mk.aria}}" onClick="{{mk.pick}}" style="min-width: 0; min-height: 0; height: 100%; box-sizing: border-box; display: grid; grid-template-columns: var(--name) minmax(0, 1fr); align-items: center; column-gap: var(--g); padding: 0 0 1px; background: transparent; border: 0; border-radius: 0; color: #171717; text-align: left; cursor: pointer; opacity: {{mk.op}}">
+                <span class="mark {{mk.markCls}}" style="min-width: 0; height: 100%; margin-left: -8px; display: flex; align-items: center; justify-content: center; --pd: {{mk.pd}}; --tw: {{mk.tw}}; --tn: {{mk.tn}}">
+                  <span class="mark-art" style="width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 0 8px; border-radius: 6px">
+                    <span class="mark-name" style="display: block; white-space: nowrap; font-family: Geist, 'Helvetica Neue', Arial, sans-serif; color: {{mk.nameFg}}">{{mk.name}}</span>
+                  </span>
+                </span>
+                <span style="min-width: 0; display: flex; align-items: center">
+                  <span class="pdots" aria-hidden="true" style="--pc: {{mk.pcols}}"><canvas id="{{mk.cvId}}" style="position: absolute; left: -4px; top: -4px; width: calc(100% + 8px); height: calc(100% + 8px + {{rowShb}})"></canvas></span>
+                  <span aria-hidden="true" style="flex: 1 1 0; min-width: 0; height: 4px; margin-left: var(--g); background: radial-gradient(circle, #a3978a 0.9px, transparent 1.3px) 0 50% / 5px 4px repeat-x"></span>
+                  <span class="cnt" style="flex: none; position: relative; min-width: var(--count); box-sizing: border-box; padding-left: 6px; text-align: right; font-family: Geist, 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 18px; line-height: 1; font-variant-numeric: tabular-nums; color: #171717"><span class="cnt-n">{{mk.label}}</span><span class="cnt-x" aria-hidden="true" style="position: absolute; right: -1px; top: 50%; width: 16px; height: 16px; margin-top: -8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="display: block; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round"><path d="M3 3l10 10M13 3L3 13"></path></svg></span></span>
+                </span>
+              </button>
+            </sc-if>
+            <sc-if value="{{mk.nr}}" hint-placeholder-val="{{ false }}">
+              <div class="chip-nr" role="group" aria-label="{{mk.aria}}" title="{{mk.title}}" style="min-width: 0; min-height: 0; height: 100%; box-sizing: border-box; display: grid; grid-template-columns: var(--name) minmax(0, 1fr); align-items: center; column-gap: var(--g); padding: 0 0 1px; color: #5e574e; opacity: {{mk.op}}">
+                <span class="mark" style="min-width: 0; height: 100%; margin-left: -8px; display: flex; align-items: center; justify-content: center; --tw: {{mk.tw}}; --tn: {{mk.tn}}">
+                  <span class="mark-art" style="width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 0 8px; border-radius: 6px">
+                    <span class="mark-name" style="display: block; white-space: nowrap; font-family: Geist, 'Helvetica Neue', Arial, sans-serif; color: {{mk.nameFg}}">{{mk.name}}</span>
+                  </span>
+                </span>
+                <span class="chip-nr-note" style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 500">{{mk.note}}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{mk.step}}" hint-placeholder-val="{{ false }}">
+              <div class="oth-row" style="position: relative; min-width: 0; min-height: 0; height: 100%">
+                <button type="button" class="{{mk.cls}}" aria-pressed="{{mk.pressed}}" aria-label="{{mk.aria}}" onClick="{{mk.pick}}" style="width: 100%; min-width: 0; min-height: 0; height: 100%; box-sizing: border-box; display: grid; grid-template-columns: var(--name) minmax(0, 1fr); align-items: center; column-gap: var(--g); padding: 0 0 1px; background: transparent; border: 0; border-radius: 0; color: #171717; text-align: left; cursor: pointer; opacity: {{mk.op}}">
+                  <span class="mark {{mk.markCls}}" style="min-width: 0; height: 100%; margin-left: -8px; display: flex; align-items: center; justify-content: center; --pd: {{mk.pd}}; --tw: {{mk.tw}}; --tn: {{mk.tn}}">
+                    <span class="mark-art" style="width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 0 8px; border-radius: 6px">
+                      <span class="mark-name" style="display: block; white-space: nowrap; font-family: Geist, 'Helvetica Neue', Arial, sans-serif; color: {{mk.nameFg}}">{{mk.name}}</span>
+                    </span>
+                  </span>
+                  <span style="min-width: 0; display: flex; align-items: center">
+                    <span class="pdots" aria-hidden="true" style="--pc: {{mk.pcols}}"><canvas id="{{mk.cvId}}" style="position: absolute; left: -4px; top: -4px; width: calc(100% + 8px); height: calc(100% + 8px + {{rowShb}})"></canvas></span>
+                    <span aria-hidden="true" style="flex: 1 1 0; min-width: 0; height: 4px; margin-left: var(--g); background: radial-gradient(circle, #a3978a 0.9px, transparent 1.3px) 0 50% / 5px 4px repeat-x"></span>
+                    <span aria-hidden="true" style="flex: none; width: var(--stw)"></span>
+                    <span class="cnt" style="flex: none; position: relative; width: var(--ocw); box-sizing: border-box; text-align: right; white-space: nowrap; font-family: Geist, 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 18px; line-height: 1; font-variant-numeric: tabular-nums; color: #171717"><span class="cnt-n">{{mk.label}}<span class="cnt-of" style="margin-left: 1px; font-size: 0.72em; color: #5e574e">{{mk.of}}</span></span><span class="cnt-x" aria-hidden="true" style="position: absolute; right: -1px; top: 50%; width: 16px; height: 16px; margin-top: -8px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="display: block; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round"><path d="M3 3l10 10M13 3L3 13"></path></svg></span></span>
+                  </span>
+                </button>
+                <div class="oth-step" role="group" aria-label="Other’s seats in the coalition" style="position: absolute; top: 0; bottom: 1px; right: var(--ocw); width: var(--stw); box-sizing: border-box; padding-right: 6px; display: flex; align-items: center; justify-content: flex-end">
+                  <button type="button" class="step {{mk.lessCls}}" aria-label="{{mk.lessAria}}" aria-disabled="{{mk.lessOff}}" onPointerDown="{{mk.lessDown}}" onPointerLeave="{{mk.stopHold}}" onClick="{{mk.lessClick}}" style="flex: none; width: 34px; height: 44px; box-sizing: border-box; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; color: #181818; cursor: pointer">
+                    <span class="step-face" aria-hidden="true" style="width: 26px; height: 26px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1.5px solid #181818; border-radius: 50%; background: #ffffff"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="display: block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round"><path d="M2 6h8"></path></svg></span>
+                  </button>
+                  <button type="button" class="step {{mk.moreCls}}" aria-label="{{mk.moreAria}}" aria-disabled="{{mk.moreOff}}" onPointerDown="{{mk.moreDown}}" onPointerLeave="{{mk.stopHold}}" onClick="{{mk.moreClick}}" style="flex: none; width: 34px; height: 44px; box-sizing: border-box; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; color: #181818; cursor: pointer">
+                    <span class="step-face" aria-hidden="true" style="width: 26px; height: 26px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1.5px solid #181818; border-radius: 50%; background: #ffffff"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="display: block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round"><path d="M2 6h8M6 2v8"></path></svg></span>
+                  </button>
+                </div>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+</div>
+</template>
+<noscript><p style="font-family:Georgia,serif;padding:20px">This interactive graphic needs JavaScript.</p></noscript>
+<script>
+/* dc-lite: a small standalone renderer for Design Component (.dc.html) artboards.
+   Renders the <x-dc> template held in <template id="dc-tpl"> with the artboard's own
+   class Component extends DCLogic, so the embed runs without the design canvas.
+   Supports {{holes}} (dotted lookups and literals) in text and attributes, <sc-for>,
+   <sc-if>, on* event bindings, inline style diffing, setState batching and the
+   componentDidMount / componentDidUpdate / componentWillUnmount lifecycle.
+   Elements keep their identity between renders (keyed by template position), so
+   canvases, focus and listeners survive, as they do under the canvas runtime. */
+(function () {
+  "use strict";
+  var ids = new WeakMap(), nextId = 1;
+  function tid(node) { var i = ids.get(node); if (!i) { i = nextId++; ids.set(node, i); } return i; }
+
+  // JSX text rules: whitespace-only runs with a newline vanish; lines are trimmed and joined with a space
+  function jsxText(s) {
+    if (!/[\r\n]/.test(s)) return s;
+    var lines = s.split(/\r\n|\n|\r/), last = -1, out = "";
+    for (var k = 0; k < lines.length; k++) if (/[^ \t]/.test(lines[k])) last = k;
+    for (var i = 0; i < lines.length; i++) {
+      var t = lines[i].replace(/\t/g, " ");
+      if (i !== 0) t = t.replace(/^ +/, "");
+      if (i !== lines.length - 1) t = t.replace(/ +$/, "");
+      if (t) { if (i !== last) t += " "; out += t; }
+    }
+    return out;
+  }
+
+  function lookup(path, scope) {
+    var p = path.trim();
+    if (p === "true") return true;
+    if (p === "false") return false;
+    if (p === "null") return null;
+    if (p === "undefined" || p === "") return undefined;
+    if (/^-?\d+(\.\d+)?$/.test(p)) return parseFloat(p);
+    if (/^(['"]).*\1$/.test(p)) return p.slice(1, -1);
+    var parts = p.split("."), v = scope[parts[0]];
+    for (var i = 1; i < parts.length; i++) { if (v == null) return undefined; v = v[parts[i]]; }
+    return v;
+  }
+  var WHOLE = /^\s*\{\{([^{}]+)\}\}\s*$/, ANY = /\{\{([^{}]+)\}\}/g;
+  function value(str, scope) {
+    var m = WHOLE.exec(str);
+    if (m) return lookup(m[1], scope);
+    if (str.indexOf("{{") < 0) return str;
+    return str.replace(ANY, function (_, p) { var v = lookup(p, scope); return v == null || typeof v === "boolean" ? "" : String(v); });
+  }
+
+  var BOOL_ATTR = /^(disabled|hidden|checked|readonly|required|selected|multiple|autofocus|open|novalidate|inert)$/;
+  function attrText(name, v) {
+    if (v == null) return null;
+    if (typeof v === "boolean") {
+      if (/^(aria-|data-)/.test(name)) return String(v);
+      return v && BOOL_ATTR.test(name) ? "" : (v ? "true" : null);
+    }
+    if (typeof v === "function" || typeof v === "object") return null;
+    return String(v);
+  }
+  function eventType(name) {
+    var t = name.slice(2).toLowerCase();
+    return t === "blur" ? "focusout" : t === "focus" ? "focusin" : t === "doubleclick" ? "dblclick" : t;
+  }
+
+  // Builds this render's tree from the template
+  function build(node, scope, loop, out) {
+    for (var c = node.firstChild; c; c = c.nextSibling) {
+      if (c.nodeType === 3) {
+        var raw = jsxText(c.data);
+        if (!raw) continue;
+        var tv = value(raw, scope);
+        tv = tv == null || typeof tv === "boolean" ? "" : String(tv);
+        if (tv) out.push({ key: "t" + tid(c) + loop, text: tv });
+        continue;
+      }
+      if (c.nodeType !== 1) continue;
+      var tag = c.localName;
+      if (tag === "sc-for") {
+        var list = value(c.getAttribute("list") || "", scope), as = c.getAttribute("as") || "item";
+        if (list && typeof list.length === "number") {
+          for (var i = 0; i < list.length; i++) {
+            var s = Object.create(scope); s[as] = list[i]; s.$index = i;
+            build(c, s, loop + "." + tid(c) + ":" + i, out);
+          }
+        }
+        continue;
+      }
+      if (tag === "sc-if") {
+        if (value(c.getAttribute("value") || "", scope)) build(c, scope, loop, out);
+        continue;
+      }
+      var v = { key: "e" + tid(c) + loop, tag: tag, ns: c.namespaceURI, attrs: {}, ev: {}, kids: [] };
+      for (var a = 0; a < c.attributes.length; a++) {
+        var at = c.attributes[a], n = at.name;
+        if (n.indexOf("hint-") === 0) continue;
+        var val = value(at.value, scope);
+        if (/^on[a-z]/i.test(n)) { if (typeof val === "function") v.ev[eventType(n)] = val; continue; }
+        var txt = attrText(n, val);
+        if (txt != null) v.attrs[n] = txt;
+      }
+      build(c, scope, loop, v.kids);
+      out.push(v);
+    }
+  }
+
+  // Inline styles are applied one declaration at a time, so styles set from script survive a render
+  function parseStyle(s) {
+    var out = {}, depth = 0, q = "", start = 0;
+    function take(seg) {
+      var i = seg.indexOf(":");
+      if (i < 0) return;
+      var k = seg.slice(0, i).trim(), val = seg.slice(i + 1).trim(), pr = "";
+      if (!k) return;
+      if (/!important\s*$/i.test(val)) { pr = "important"; val = val.replace(/\s*!important\s*$/i, ""); }
+      if (k.indexOf("--") !== 0) k = k.toLowerCase();
+      out[k] = [val, pr];
+    }
+    for (var i = 0; i < s.length; i++) {
+      var ch = s[i];
+      if (q) { if (ch === q) q = ""; continue; }
+      if (ch === "'" || ch === '"') q = ch;
+      else if (ch === "(") depth++;
+      else if (ch === ")") depth--;
+      else if (ch === ";" && depth <= 0) { take(s.slice(start, i)); start = i + 1; }
+    }
+    take(s.slice(start));
+    return out;
+  }
+  function setStyle(el, str) {
+    if (el.__dcStyleStr === str) return;
+    var next = str == null ? {} : parseStyle(str), prev = el.__dcStyle || {};
+    for (var k in prev) if (!(k in next)) el.style.removeProperty(k);
+    for (var j in next) {
+      var p = prev[j];
+      if (!p || p[0] !== next[j][0] || p[1] !== next[j][1]) el.style.setProperty(j, next[j][0], next[j][1]);
+    }
+    el.__dcStyle = next; el.__dcStyleStr = str;
+  }
+
+  function dispatch(e) { var f = this.__dcEv && this.__dcEv[e.type]; if (f) return f(e); }
+  function patchEl(el, v) {
+    var had = el.__dcAttrs || {}, now = {};
+    for (var n in v.attrs) {
+      if (n === "style") { setStyle(el, v.attrs[n]); now[n] = 1; continue; }
+      if (had[n] !== v.attrs[n]) el.setAttribute(n, v.attrs[n]);
+      now[n] = v.attrs[n];
+    }
+    for (var o in had) if (!(o in now)) { if (o === "style") setStyle(el, null); else el.removeAttribute(o); }
+    el.__dcAttrs = now;
+    var ev = el.__dcEv || (el.__dcEv = {});
+    for (var t in v.ev) { if (!(t in ev)) el.addEventListener(t, dispatch); ev[t] = v.ev[t]; }
+    for (var u in ev) if (!(u in v.ev)) ev[u] = null;
+    patchKids(el, v.kids);
+  }
+  function create(v) {
+    if (v.text != null) { var tn = document.createTextNode(v.text); tn.__dcKey = v.key; return tn; }
+    var el = v.ns && v.ns !== "http://www.w3.org/1999/xhtml" ? document.createElementNS(v.ns, v.tag) : document.createElement(v.tag);
+    el.__dcKey = v.key;
+    return el;
+  }
+  function patchKids(parent, kids) {
+    var have = {}, c;
+    for (c = parent.firstChild; c; c = c.nextSibling) if (c.__dcKey) have[c.__dcKey] = c;
+    var nodes = kids.map(function (v) {
+      var n = have[v.key];
+      if (n && (v.text != null ? n.nodeType === 3 : (n.nodeType === 1 && n.localName === v.tag))) delete have[v.key];
+      else n = create(v);
+      if (v.text != null) { if (n.data !== v.text) n.data = v.text; }
+      else patchEl(n, v);
+      return n;
+    });
+    for (var k in have) if (have[k].parentNode === parent) parent.removeChild(have[k]);
+    var cur = parent.firstChild;
+    for (var i = 0; i < nodes.length; i++) {
+      while (cur && !cur.__dcKey && cur !== nodes[i]) cur = cur.nextSibling;
+      if (cur === nodes[i]) cur = cur.nextSibling;
+      else parent.insertBefore(nodes[i], cur);
+    }
+  }
+
+  function DCLogic(props) { this.props = props || {}; this.state = {}; this.__q = []; this.__cb = []; }
+  DCLogic.prototype.setState = function (patch, cb) {
+    this.__q.push(patch);
+    if (cb) this.__cb.push(cb);
+    var self = this;
+    if (!self.__pending) { self.__pending = true; queueMicrotask(function () { self.__flush(); }); }
+  };
+  DCLogic.prototype.forceUpdate = function (cb) { this.setState(null, cb); };
+  DCLogic.prototype.__flush = function () {
+    this.__pending = false;
+    if (this.__dead || !this.__mounted) return;
+    var q = this.__q, cbs = this.__cb, prev = this.state, s = Object.assign({}, prev);
+    this.__q = []; this.__cb = [];
+    for (var i = 0; i < q.length; i++) {
+      var p = typeof q[i] === "function" ? q[i](s, this.props) : q[i];
+      if (p) s = Object.assign({}, s, p);
+    }
+    this.state = s;
+    this.__render();
+    try { if (this.componentDidUpdate) this.componentDidUpdate(this.props, prev); } catch (e) { console.error(e); }
+    cbs.forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
+  };
+  DCLogic.prototype.__render = function () {
+    var vals = this.renderVals ? this.renderVals() || {} : {};
+    var out = [];
+    build(this.__tpl, vals, "", out);
+    patchKids(this.__root, out);
+  };
+
+  function propsFrom(spec) {
+    var p = {};
+    for (var k in spec) if (k.charAt(0) !== "$" && spec[k] && "default" in spec[k]) p[k] = spec[k].default;
+    return p;
+  }
+
+  window.DCLogic = DCLogic;
+  window.DCLite = {
+    mount: function (Component, spec, root, tpl) {
+      var props = Object.freeze(propsFrom(spec || {}));
+      var c = new Component(props);
+      c.props = props;
+      c.__q = c.__q || []; c.__cb = c.__cb || [];
+      c.__root = root; c.__tpl = tpl;
+      c.__render();
+      c.__mounted = true;
+      try { if (c.componentDidMount) c.componentDidMount(); } catch (e) { console.error(e); }
+      if (c.__q.length && !c.__pending) { c.__pending = true; queueMicrotask(function () { c.__flush(); }); }
+      window.addEventListener("pagehide", function (e) {
+        if (e.persisted) return;
+        c.__dead = true;
+        try { if (c.componentWillUnmount) c.componentWillUnmount(); } catch (err) { console.error(err); }
+      });
+      return c;
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+
+const PARTIES = {
+  DA:  { name: "DA",       color: "#5070ae" },
+  ASA: { name: "ActionSA", color: "#367c23" },
+  PA:  { name: "PA",       color: "#3daa84" },
+  FFP: { name: "FF+",      color: "#f2a22c" },
+  IFP: { name: "IFP",      color: "#8e1f3d" },
+  OTH: { name: "Other",    color: "#c0c0c0" },
+  EFF: { name: "EFF",      color: "#c84837" },
+  MK:  { name: "MK",       color: "#6aa852" },
+  ANC: { name: "ANC",      color: "#f0f05a" }
+};
+/* v19: each party row starts with the party's initials (a party without initials, like ActionSA, keeps its name, and Other stays Other). v20: em is each label's width in ems in Geist at weights 100, 200 … 900, kerning included, measured from the variable font, so labelEm can read it off for the Label weight tweak's weight (in between, it goes part way between the two nearest); spare is a little give for rounding and fallback fonts. The CSS uses the result (--tw) to draw a label too long for its button just small enough to fit it. */
+const LABELS = { em: {
+  DA: [1.254, 1.28, 1.306, 1.332, 1.354, 1.375, 1.398, 1.419, 1.441],
+  ActionSA: [3.92, 4.014, 4.104, 4.198, 4.321, 4.44, 4.564, 4.683, 4.806],
+  Other: [2.445, 2.493, 2.542, 2.59, 2.663, 2.733, 2.806, 2.876, 2.949],
+  EFF: [1.663, 1.693, 1.723, 1.753, 1.773, 1.794, 1.813, 1.834, 1.854],
+  MK: [1.465, 1.482, 1.5, 1.517, 1.546, 1.574, 1.604, 1.632, 1.661],
+  ANC: [1.979, 2.014, 2.045, 2.08, 2.11, 2.141, 2.172, 2.203, 2.233],
+  PA: [1.16, 1.19, 1.218, 1.248, 1.272, 1.294, 1.319, 1.341, 1.365],
+  "FF+": [1.658, 1.678, 1.698, 1.718, 1.734, 1.75, 1.764, 1.78, 1.796],
+  IFP: [1.372, 1.405, 1.437, 1.47, 1.496, 1.522, 1.548, 1.574, 1.6]
+}, spare: 1.02 };
+const labelEm = (name, wt) => {
+  const t = LABELS.em[name], f = (Math.min(900, Math.max(100, wt)) - 100) / 100, i = Math.min(7, Math.floor(f));
+  return (t ? t[i] + (t[i + 1] - t[i]) * (f - i) : 0.62 * name.length) * LABELS.spare;
+};
+/* Daily Maverick design system colours used for state (party colours above are data and stay as they are) */
+const DM = {
+  ink1: "#171717", ink2: "#292929", ink4: "#6b6c6d", ink5: "#8f9193", black: "#181818", panel: "#111111",
+  grey1: "#e9e9e9", grey2: "#d4d4d4", grey3: "#f2f2f2", white: "#ffffff",
+  red: "#d33d3d", redDark: "#a61212", green: "#567b43"
+};
+/* Kept from v5: a warm tan for seats before anyone picks a party; a paler tan for seats left out of a coalition (a step lighter, so seats a path takes from "Other" still stand out); warm greys for secondary text */
+const PRINT = { tan: "#cdbfa7", tanPale: "#e2d9ca", ink2: "#4a443c", muted: "#5e574e" };
+const lum = hex => { const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+const textOn = hex => { const L = lum(hex); return (1.05 / (L + 0.05)) >= ((L + 0.05) / (lum(DM.ink1) + 0.05)) ? DM.white : DM.ink1; };
+/* A colour in less light, worked out in linear light so the shade keeps the party's hue the way a lit object would. */
+const toLin = v => v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+const toSrgb = v => v <= 0.0031308 ? v * 12.92 : 1.055 * Math.pow(v, 1 / 2.4) - 0.055;
+const shade = (hex, f) => "#" + [1, 3, 5].map(i => Math.round(Math.min(1, Math.max(0, toSrgb(toLin(parseInt(hex.slice(i, i + 2), 16) / 255) * f))) * 255).toString(16).padStart(2, "0")).join("");
+/* v11 toon tones, as shares of the light falling on the top: the side (it faces away from the light, which sits high behind the board) and the outline. */
+const TONE = { side: 0.5, line: 0.32 };
+const tonesOf = hex => ({ c: hex, s: shade(hex, TONE.side), k: shade(hex, TONE.line) });
+/* Empty pegs (nothing picked yet, or left out of the coalition) sit sunk in their holes in a near-white tone with a faint outline, so the board all but melts into the page until a party is picked. c is the top, s the side, k the outline. */
+const EMPTY_TONES = { c: "#f8f6f1", s: "#ebe6de", k: "#ddd7cd" };
+/* The peg board. Heights are in the half circle's 1000-wide units: how far a peg stands above the board while its party is picked and before anything is picked; sink is how far a left-out peg drops into its hole, and hole how much wider than its peg a hole is. shadow is how long a shadow fell for each unit of height before v18 (the Sun angle tweak sets it now; 0.4 is a sun about 68° up); jitter is the most, in ms, any one peg strays behind its place in the wave (v14: 8, down from 14 in v13 and 36 before that), so the wave's front ripples rather than ticking round like a clock hand, without muddying the ease. */
+const PEG = { up: 32, rest: 9, sink: 1.7, hole: 2.6, shadow: 0.4, jitter: 8 };
+/* v12 majority hop: once the parties picked hold a majority, each coalition peg hops in its hole on a loop of its own. tempo is a peg's average time in seconds for one loop (a hop, a small rebound and a beat seated), spread how far a peg's own time strays either side of that, and low the lowest a peg hops, as a share of the Hop height tweak (each peg's share is scattered between low and 1). */
+/* v16: burst is how long, in ms, the hop runs once the wave crosses the majority line before the board settles (the Hop length tweak's Short burst; While it holds keeps v12's loop) */
+const HOP = { tempo: 0.56, spread: 0.32, low: 0.55, burst: 1800 };
+/* v14 wave ease: how a sweep moves along the pegs over its time, as CSS cubic-bezier curves (the Wave ease tweak picks one). easeTime(c, f) is the share of the sweep's time it takes to get f of its way along: it solves the curve for f, then reads off the time. */
+const WAVE_EASE = { "Smooth start and end": [0.65, 0, 0.35, 1], "Smooth start": [0.32, 0, 0.67, 0], "Smooth end": [0.33, 1, 0.68, 1], "Even": [0, 0, 1, 1] };
+const bez = (p1, p2, s) => 3 * p1 * s * (1 - s) * (1 - s) + 3 * p2 * s * s * (1 - s) + s * s * s;
+const easeTime = (c, f) => { let lo = 0, hi = 1; for (let k = 0; k < 22; k++) { const m = (lo + hi) / 2; if (bez(c[1], c[3], m) < f) lo = m; else hi = m; } return bez(c[0], c[2], (lo + hi) / 2); };
+/* v15 intro (the note at the top has the whole story). settle is how long, in ms, after the drain's wave has crossed the board the intro hands back (the last pegs have landed by then); view is how much of the chart must be on screen before the Hold time starts counting. */
+const INTRO = { settle: 700, view: 0.5 };
+/* v25: Other's minus or plus held down: it steps again after wait ms, then after every ms, each wait speedup times the one before, down to fastest ms */
+const STEP = { wait: 420, every: 120, speedup: 0.86, fastest: 40 };
+const reducedMotion = () => typeof window !== "undefined" && !!window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const rnd = (i, s) => ((Math.sin(i * 12.9898 + s * 78.233) * 43758.5453) % 1 + 1) % 1;
+const num = (v, d, lo, hi) => { const n = typeof v === "number" ? v : parseFloat(v); return isFinite(n) ? Math.min(hi, Math.max(lo, n)) : d; };
+const POLLS = {
+  srf:   { name: "Social Research Foundation/The Common Sense", tab: "SRF/Common Sense poll", when: "July 2026" },
+  ipsos: { name: "Ipsos", tab: "Ipsos poll", when: "July 2026" },
+  sabi:  { name: "News24/SABI", tab: "News24/SABI poll", when: "Aug/Sep 2026" }
+};
+/* "About this poll" panel copy. Sources: The Common Sense's eThekwini poll page (methodology footnote); Ipsos's press release of 4 September 2026 and its eThekwini margin of error; News24's Elections Poll '26 methodology page, with its eThekwini sample and margin of error. */
+const POLL_INFO = {
+  srf: {
+    title: "Social Research Foundation / The Common Sense",
+    body: "Victory Research phoned registered voters on randomly dialled mobile numbers for the Social Research Foundation, and The Common Sense published the results. They are weighted to match eThekwini’s registered voters and adjusted for likely turnout.",
+    facts: [["Fieldwork", "8–31 July 2026"], ["Sample", "500 in eThekwini"], ["Interviews", "By phone"], ["Margin of error", "±4.4 points"]],
+    url: "https://www.thecommonsense.co.za/polls/mk-leads-ethekwini-as-anc-support-slides",
+    link: "Source: The Common Sense"
+  },
+  ipsos: {
+    title: "Ipsos Pulse of the People",
+    body: "Ipsos’s regular Khayabus survey. Interviewers visited randomly selected homes across South Africa and spoke to people in their home language; registered voters marked a mock ballot. eThekwini shares are among those who chose a party.",
+    facts: [["Fieldwork", "June–July 2026"], ["Sample", "3,600 nationally"], ["Interviews", "Face to face"], ["Margin of error", "±6.86 points"]],
+    url: "https://www.ipsos.com/en-za/key-metros-remain-battlegrounds-ahead-november-local-government-elections",
+    link: "Source: Ipsos"
+  },
+  sabi: {
+    title: "News24 / SABI Strategy Group",
+    body: "News24’s Elections Poll ’26, conducted by SABI Strategy Group, a research and campaign advisory firm. Registered voters were interviewed, mostly face to face, and results are weighted to voter-registration and census figures with a 52% turnout model.",
+    facts: [["Fieldwork", "25 Aug–17 Sep 2026"], ["Sample", "1,000 in eThekwini"], ["Interviews", "Mostly face to face"], ["Margin of error", "±3.4 points"]],
+    url: "https://specialprojects.news24.com/elections-poll-26/index.html",
+    link: "Source: News24"
+  }
+};
+
+/* eThekwini v5: eThekwini's council, from metro-coalition-poll-data.xlsx as in the earlier eThekwini and all-metros embeds. Seats = poll share x council size, rounded; Other = the rest of the council.
+   null = not reported separately (counted in Other): ActionSA in the SRF/Common Sense and News24/SABI polls. o = seats taken from Other in a suggested path. */
+const METRO = { id: "ethekwini", name: "eThekwini", seats: 222, majority: 112,
+  order: ["DA", "IFP", "ASA", "OTH", "ANC", "EFF", "MK"],
+  polls: [
+    { id: "srf", seats: { DA: 51, IFP: 36, ASA: null, ANC: 40, EFF: 9, MK: 73, OTH: 13 },
+      paths: [{ p: ["DA", "ANC", "IFP"], o: 0 }, { p: ["ANC", "MK"], o: 0 }, { p: ["IFP", "MK"], o: 3 }] },
+    { id: "ipsos", seats: { DA: 38, IFP: 13, ASA: 9, ANC: 22, EFF: 7, MK: 122, OTH: 11 },
+      paths: [{ p: ["MK"], o: 0 }, { p: ["IFP", "MK"], o: 0 }] },
+    { id: "sabi", seats: { DA: 67, IFP: 13, ASA: null, ANC: 24, EFF: 7, MK: 95, OTH: 16 },
+      paths: [{ p: ["ANC", "MK"], o: 0 }, { p: ["IFP", "MK"], o: 4 }, { p: ["DA", "ANC", "IFP"], o: 8 }] }
+  ] };
+
+/* v17: the most seats any one party holds in any poll (Other included), which sets how many columns of pegs the party rows need */
+const MAXSEATS = Math.max.apply(null, METRO.polls.map(p => Math.max.apply(null, Object.values(p.seats).filter(v => v != null))));
+/* v17: how many rows of pegs a party row may have. bestFit tries each count for the room the party rows have (W by H, in px) and keeps the one that gives the biggest whole-pixel pegs, and the fewest rows on a tie (longer bars, more air between them). c holds the rows' measures as the CSS sets them, and works the peg size out the same way the CSS does. */
+const FIT = { min: 3, max: 12 };
+function bestFit(W, H, c) {
+  const A = W - 2 * c.rp - c.name - 2 * c.g - c.count, rowH = H / c.n;
+  let best = null;
+  for (let R = FIT.min; R <= FIT.max; R++) {
+    const C = Math.ceil(MAXSEATS / R);
+    const d = Math.floor(Math.min(c.dmax, (A - (C - 1) * c.dg) / C, (rowH - c.air - (R - 1) * c.dv) / (R + 1.8 * c.hk)) + 1e-6);
+    if (!best || d > best.dot) best = { rows: R, cols: C, dot: d };
+  }
+  return best;
+}
+
+/* Hemicycle on the board: rows chosen so seats sit evenly along and across rows; positions in a 1000 x 530 box seen from straight above.
+   fill = the seats in the order a coalition fills them (from the left end); depth = the same seats back to front, the order they are drawn in.
+   r = a peg's radius: a little narrower than v9's dot, so the board shows between pegs and their shadows have somewhere to fall. */
+function seatLayout(N) {
+  const CX = 500, CY = 495, R0 = 172, EDGE = 494.6, K = 0.427;
+  let best = null;
+  for (let rows = 6; rows <= 14; rows++) {
+    let R1 = 480, dot = 14.6, radial = 0, arc = 0;
+    for (let it = 0; it < 30; it++) {
+      radial = (R1 - R0) / (rows - 1);
+      arc = Math.PI * rows * (R0 + R1) / 2 / N;
+      dot = K * Math.min(radial, arc);
+      R1 = EDGE - dot;
+    }
+    const score = Math.abs(Math.log(arc / radial));
+    if (!best || score < best.score) best = { rows: rows, R1: R1, dot: dot, pitch: Math.min(radial, arc), score: score };
+  }
+  const radii = [];
+  for (let i = 0; i < best.rows; i++) radii.push(R0 + (best.R1 - R0) * i / (best.rows - 1));
+  const sumR = radii.reduce((a, b) => a + b, 0);
+  const counts = radii.map(r => Math.floor(N * r / sumR));
+  const rem = N - counts.reduce((a, b) => a + b, 0);
+  radii.map((r, i) => [N * r / sumR - counts[i], i]).sort((a, b) => b[0] - a[0]).slice(0, rem).forEach(e => { counts[e[1]]++; });
+  const pts = [];
+  radii.forEach((r, i) => {
+    const n = counts[i];
+    for (let j = 0; j < n; j++) {
+      const a = n === 1 ? Math.PI / 2 : Math.PI * (1 - j / (n - 1));
+      pts.push({ x: CX + r * Math.cos(a), y: CY - r * Math.sin(a), a: a });
+    }
+  });
+  pts.sort((p, q) => q.a - p.a || p.y - q.y);
+  const fill = pts.map(p => ({ x: p.x, y: p.y, a: p.a }));   // v13: a, each seat's angle, sets its place in the wave
+  const depth = fill.map((p, i) => i).sort((i, j) => fill[i].y - fill[j].y || fill[i].x - fill[j].x);
+  return { fill: fill, depth: depth, r: 0.37 * best.pitch };
+}
+
+/* v24: the pegs are drawn on canvases (the v24 note at the top has the whole story), and what follows down to the Component is the drawing. First the motion curves the CSS used, as functions the script can run: lin() reads a CSS linear() curve, given as [output, input] stops, and cb() a CSS cubic-bezier(), solved once into a table. pop and settle are the two springs (from v10, the same stops as the CSS's), ease is CSS's ease (the hop's switch, v12), hopIn and hopOut the majority hop swelling in and dying away with a slight dip (v12), and rise and fall the two halves of a hop. */
+const lin = stops => x => {
+  if (x <= 0) return stops[0][0];
+  if (x >= 1) return stops[stops.length - 1][0];
+  let i = 1;
+  while (stops[i][1] < x) i++;
+  const a = stops[i - 1], b = stops[i];
+  return a[0] + (b[0] - a[0]) * (x - a[1]) / (b[1] - a[1]);
+};
+const cb = (x1, y1, x2, y2) => {
+  const n = 160, xs = [], ys = [];
+  for (let i = 0; i <= n; i++) { xs.push(bez(x1, x2, i / n)); ys.push(bez(y1, y2, i / n)); }
+  return x => {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    let lo = 0, hi = n;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (xs[m] < x) lo = m; else hi = m; }
+    return ys[lo] + (ys[hi] - ys[lo]) * (x - xs[lo]) / ((xs[hi] - xs[lo]) || 1);
+  };
+};
+const CURVE = {
+  pop: lin([[0, 0], [0.095, 0.02], [0.269, 0.048], [0.659, 0.107], [0.835, 0.137], [0.958, 0.163], [1.052, 0.189], [1.118, 0.215], [1.16, 0.243], [1.176, 0.276], [1.161, 0.317], [1.083, 0.396], [1.01, 0.474], [0.978, 0.541], [0.973, 0.628], [1.004, 0.857], [1, 1]]),
+  settle: lin([[0, 0], [0.069, 0.013], [0.195, 0.03], [0.591, 0.078], [0.746, 0.1], [0.859, 0.12], [0.945, 0.139], [1.012, 0.161], [1.055, 0.185], [1.075, 0.215], [1.065, 0.259], [1.007, 0.367], [0.994, 0.461], [1, 1]]),
+  ease: cb(0.25, 0.1, 0.25, 1),
+  hopIn: cb(0.2, 0.8, 0.3, 1),
+  hopOut: cb(0.3, 1.3, 0.5, 1),
+  rise: cb(0.333, 0.667, 0.667, 1),
+  fall: cb(0.333, 0, 0.667, 0.333)
+};
+/* v12's hop as a peg's height through one loop (f runs 0 to 1): up like a tossed ball, back down, a small rebound, then a beat seated */
+const HOP_KEYS = [[0, 0, CURVE.rise], [0.34, 1, CURVE.fall], [0.68, 0, CURVE.rise], [0.81, 0.16, CURVE.fall], [0.94, 0, null]];
+const hopAt = f => {
+  for (let i = 0; i < HOP_KEYS.length - 1; i++) {
+    const a = HOP_KEYS[i], b = HOP_KEYS[i + 1];
+    if (f < b[0]) return a[1] + (b[1] - a[1]) * a[2]((f - a[0]) / (b[0] - a[0]));
+  }
+  return 0;
+};
+/* A channel is one value easing from a to b over dur ms, starting at t0 (any wait already added), the way a CSS transition runs: it holds a until t0, and a new target starts from wherever the value is at that moment */
+const chan = v => ({ a: v, b: v, t0: 0, dur: 0, e: null });
+const chanAt = (c, now) => {
+  if (c.a === c.b || now >= c.t0 + c.dur) return c.b;
+  if (now <= c.t0) return c.a;
+  return c.a + (c.b - c.a) * c.e((now - c.t0) / c.dur);
+};
+const chanTo = (c, v, now, wait, dur, e) => {
+  if (c.b === v) return false;
+  c.a = chanAt(c, now); c.b = v; c.t0 = now + wait; c.dur = dur; c.e = e;
+  return true;
+};
+const chanSet = (c, v) => { c.a = c.b = v; c.dur = 0; };
+/* A peg's colours change as one 120ms linear fade (v13: once the wave reaches it), drawn as the new colours laid over the old; a fade cut short lands on whichever colour it was nearer */
+const FADE = 120;
+const fadeTo = (c, key, now, wait) => {
+  if (c.t === key) return false;
+  if (c.f !== c.t && now - c.t0 >= FADE / 2) c.f = c.t;
+  c.t = key; c.t0 = now + wait;
+  return true;
+};
+const fadeAt = (c, now) => c.f === c.t ? 1 : Math.min(1, Math.max(0, (now - c.t0) / FADE));
+const TAU = Math.PI * 2;
+/* The holes (v11): dark under a standing peg, the faintest tone under a sunk one */
+const HOLE = { dark: "#6f675b", pale: "#e3ddd3" };
+/* Colours as numbers, so a fade can mix them the way a CSS colour transition does */
+const rgbOf = hex => [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16)];
+const mix = (a, b, k) => "rgb(" + Math.round(a[0] + (b[0] - a[0]) * k) + "," + Math.round(a[1] + (b[1] - a[1]) * k) + "," + Math.round(a[2] + (b[2] - a[2]) * k) + ")";
+const HOLE_RGB = { dark: rgbOf(HOLE.dark), pale: rgbOf(HOLE.pale) };
+/* The pegs' shadows' warm dark tone (v18), at alpha a */
+const ink = a => "rgba(70,56,40," + Math.max(0, Math.min(1, a)).toFixed(4) + ")";
+/* Each canvas is drawn at the screen's own pixels, one for one, so the browser never has to rescale it, which would soften the pegs; a 1x screen gets twice its pixels, which it shrinks evenly into smooth edges */
+const screenPx = () => (typeof window !== "undefined" && window.devicePixelRatio) || 1;
+const overSample = () => screenPx() < 1.5 ? 2 : 1;
+/* How far, in px, a party row's canvas reaches past its pegs on every side (the template's canvas says the same), so outlines and soft shadows are never cut off */
+const ROW_PAD = 4;
+
+/* v24: everything the board's canvas needs that changes only with the tweaks, in the half circle's 1000-wide units like the rest of the chart: each seat's place (x across, y down from the top of the chart), the order they are drawn in (back to front), a peg's radii (r across, ry front to back, foreshortened by the camera) and its hole's (hx, hy), how far a picked peg's top stands (riseUp) and a left-out one sinks (sink), how far a standing peg's shadow stretches (ssu) and how much further a hop stretches it (shk, from v12), each peg's own hop loop (v12: its length hd and starting point hp, in seconds, and its share hh of the Hop height), and how far the canvas reaches past the chart's box on each side (ml, mr, mt, mb), so the tallest top a spring and a hop can throw and the longest shadow are never cut off. W and H are the canvas's own width and height. */
+function boardGeo(lay, o) {
+  const r = lay.r, ry = r * o.sq, hx = r + PEG.hole, hy = (r + PEG.hole) * o.sq;
+  const riseUp = o.up * o.hk, sink = PEG.sink * o.sq;
+  const ssu = (2 * r + o.up * o.shf) / (2 * r), shk = o.up * o.shf / (2 * r + o.up * o.shf);
+  const x = lay.fill.map(p => p.x), y = lay.fill.map(p => o.TOP + p.y * o.sq);
+  const hop = lay.fill.map((p, i) => { const hd = o.hopDur(i); return { hd: hd, hp: rnd(i, 3) * hd, hh: HOP.low + (1 - HOP.low) * rnd(i, 4) }; });
+  const over = 1.18, side = Math.max(hx, r);
+  const reachUp = riseUp * (over + o.hopH) + ry;
+  const reachDown = Math.max(hy, sink * 1.08 + ry, ry * (2 * (1 + (ssu - 1) * over) * (1 + o.hopH * shk) - 1));
+  const ml = Math.max(0, side - Math.min.apply(null, x)) + 6, mr = Math.max(0, Math.max.apply(null, x) + side - 1000) + 6;
+  const mt = Math.max(0, reachUp - Math.min.apply(null, y)) + 6, mb = Math.max(0, Math.max.apply(null, y) + reachDown - o.SH) + 6;
+  return { key: o.key, x: x, y: y, depth: lay.depth, hop: hop, r: r, ry: ry, hx: hx, hy: hy, riseUp: riseUp, sink: sink, ssu: ssu, shk: shk, ml: ml, mr: mr, mt: mt, mb: mb, W: 1000 + ml + mr, H: o.SH + mt + mb };
+}
+
+/* v24: PegPainter draws the pegs, the half circle on one canvas and each party row's pegs on one of their own, as v21's CSS drew them, from what renderVals() decides (this.plan).
+   On the half circle each seat is drawn the way v11 to v21 built it: its shadow (v16: under every peg; v18: a soft warm disc, squashed by the camera, that stretches down the screen towards the reader as the peg stands up), its hole, its foot (the bottom curve of its side), its side (a band from the foot up to the top) and its round top, each outlined with a hairline in the peg's own deep shade (the Outlines tweak). A peg's q is how far it stands: 1 up, 0 sunk into its hole, and past either on a spring's overshoot; its top, foot, side and shadow all follow q, as v21's four transforms did together. Its colours fade when the wave reaches it, on and amp switch its hop on and off (v12), and clock is where it is in its own hop loop, which runs only while the majority holds and the peg is picked.
+   In the party rows each peg is a round top in the party colour, standing above its place on a side in the darker tone, both outlined, with a soft shadow falling straight down the page (v12, v18).
+   Every piece is drawn as an exact shape at the screen's own pixels, so the pegs are as crisp as v21's; only the soft shadows are copied from a small picture made once. The rows' pegs are drawn in a few batches, one per colour. The canvases are drawn on animation frames only while something moves or has just changed, and never while the embed is out of view. */
+class PegPainter {
+  constructor() {
+    this.b = { cv: null, ctx: null, w: 0, h: 0, dw: 0, dh: 0, s: 1, geo: null, pegs: null, tc: null, toneKey: "", shSprite: null, shKey: "", until: 0, dirty: true, hopping: false, nUp: 0, hopk: 1, psh: 1 };
+    this.rows = [];
+    this.rg = null;
+    this.ds = null;
+    this.raf = 0;
+    this.last = 0;
+    this.visible = true;
+    this.gone = false;
+    this.io = null;
+    this.ro = typeof ResizeObserver === "function" ? new ResizeObserver(es => this.resized(es)) : null;
+  }
+
+  // Finds the canvases (React keeps the same ones from render to render; one it replaces is picked up afresh), watches their sizes, and watches whether the embed is on screen
+  attach(P) {
+    if (typeof document === "undefined") return;
+    const hook = (T, el) => {
+      if (el === T.cv) return;
+      if (T.cv && this.ro) this.ro.unobserve(T.cv);
+      T.cv = el || null;
+      T.ctx = el && el.getContext ? el.getContext("2d") : null;
+      T.w = T.h = T.dw = T.dh = 0;
+      T.dirty = true;
+      if (!el) return;
+      const cs = getComputedStyle(el);
+      T.w = parseFloat(cs.width) || el.clientWidth || 0;
+      T.h = parseFloat(cs.height) || el.clientHeight || 0;
+      // where the browser can say exactly how many screen pixels a canvas covers, it is watched for that, so its pixels can match them one for one
+      if (this.ro) { try { this.ro.observe(el, { box: "device-pixel-content-box" }); } catch (err) { this.ro.observe(el); } }
+    };
+    hook(this.b, document.getElementById(P.boardId));
+    P.rows.forEach((pr, j) => {
+      const R = this.rows[j] || (this.rows[j] = { cv: null, ctx: null, w: 0, h: 0, s: 1, dots: [], until: 0, dirty: true, color: "", side: "", line: null });
+      hook(R, pr ? document.getElementById(pr.cvId) : null);
+    });
+    for (let j = P.rows.length; j < this.rows.length; j++) hook(this.rows[j], null);
+    if (!this.io && typeof IntersectionObserver === "function") {
+      const box = document.getElementById(P.boxId);
+      if (box) {
+        this.io = new IntersectionObserver(es => {
+          const v = es.some(e => e.isIntersecting);
+          if (v === this.visible) return;
+          this.visible = v;
+          if (v) { this.b.dirty = true; this.rows.forEach(R => { R.dirty = true; }); this.kick(); }
+          else if (this.raf) { cancelAnimationFrame(this.raf); this.raf = 0; this.last = 0; }
+        }, { rootMargin: "100px 0px" });
+        this.io.observe(box);
+      }
+    }
+  }
+
+  // A canvas changed size (the embed resized, or the View as tweak): it is redrawn at once, before the browser shows it blank
+  resized(es) {
+    if (this.gone) return;
+    es.forEach(e => {
+      const T = e.target === this.b.cv ? this.b : this.rows.find(R => R.cv === e.target);
+      if (!T) return;
+      const dp = e.devicePixelContentBoxSize && e.devicePixelContentBoxSize[0];
+      T.w = e.contentRect.width; T.h = e.contentRect.height;
+      T.dw = dp ? dp.inlineSize : 0; T.dh = dp ? dp.blockSize : 0;
+      T.dirty = true;
+    });
+    this.frame(true);
+  }
+
+  // Takes a new render's plan: every peg whose state, colour or hop changes starts its transition (after its wait in the wave), as the CSS's did
+  apply(P) {
+    if (this.gone || !P) return;
+    this.attach(P);
+    const now = performance.now();
+    this.setBoard(P.board, now);
+    this.setRows(P.rows, P.rowGeo, now);
+    this.kick();
+  }
+
+  setBoard(Q, now) {
+    const B = this.b, seats = Q.seats, instant = Q.snap || Q.reduce;
+    if (B.geo !== Q.geo) { B.geo = Q.geo; B.dirty = true; }
+    // each colour a peg can take, ready to draw and to mix in a fade
+    if (!B.tc || B.toneKey !== Q.toneKey) {
+      B.tc = {};
+      Object.keys(Q.tones).forEach(k => { const t = Q.tones[k]; B.tc[k] = { c: t.c, s: t.s, k: t.k, lw: t.lw, cr: rgbOf(t.c), sr: rgbOf(t.s), kr: rgbOf(t.k) }; });
+      B.toneKey = Q.toneKey; B.dirty = true;
+    }
+    if (B.psh !== Q.psh || B.hopk !== Q.hopk) { B.psh = Q.psh; B.hopk = Q.hopk; B.dirty = true; }
+    const fresh = !B.pegs || B.pegs.length !== seats.length;
+    if (fresh) B.pegs = seats.map(() => ({ q: chan(0), on: chan(0), amp: chan(0), col: { f: "", t: "", t0: 0 }, hole: { f: "", t: "", t0: 0 }, up: false, clock: 0, hd: 1, hh: 1, qv: 0, h: 0, title: "" }));
+    let until = B.until, nUp = 0;
+    seats.forEach((s, i) => {
+      const p = B.pegs[i], loop = Q.geo.hop[i], q = s.up ? 1 : 0, amp = Q.hopping && s.up ? 1 : 0;
+      if (fresh) p.clock = loop.hp;   // v12: each peg starts somewhere of its own in its hop loop
+      p.hd = loop.hd; p.hh = loop.hh; p.title = s.title; p.up = s.up;
+      if (s.up) nUp++;
+      if (fresh || instant) {
+        chanSet(p.q, q); chanSet(p.on, q); chanSet(p.amp, amp);
+        p.col.f = p.col.t = s.tone; p.hole.f = p.hole.t = s.hole;
+        return;
+      }
+      // standing up on the pop spring, sinking on the settle spring, 460ms either way; colours and hole in 120ms; the hop's switch in 250ms, all after the peg's wait in the wave
+      if (chanTo(p.q, q, now, s.d, 460, s.up ? CURVE.pop : CURVE.settle)) until = Math.max(until, p.q.t0 + 460);
+      if (fadeTo(p.col, s.tone, now, s.d)) until = Math.max(until, p.col.t0 + FADE);
+      if (fadeTo(p.hole, s.hole, now, s.d)) until = Math.max(until, p.hole.t0 + FADE);
+      if (chanTo(p.on, q, now, s.d, 250, CURVE.ease)) until = Math.max(until, p.on.t0 + 250);
+      // v12 and v13: the hop swells in over 300ms once the wave crosses the dashed line (majd), and dies away over 550ms, dipping a touch, when the majority is lost
+      if (amp ? chanTo(p.amp, 1, now, Q.majd, 300, CURVE.hopIn) : chanTo(p.amp, 0, now, 0, 550, CURVE.hopOut)) until = Math.max(until, p.amp.t0 + p.amp.dur);
+    });
+    if (fresh || instant) B.dirty = true;
+    B.until = until; B.nUp = nUp; B.hopping = Q.hopping && !Q.reduce;
+  }
+
+  setRows(list, rg, now) {
+    if (!rg) { this.rg = null; return; }
+    if (!this.rg || this.rg.key !== rg.key) this.rows.forEach(R => { R.dirty = true; });
+    this.rg = rg;
+    const instant = rg.snap || rg.reduce;
+    list.forEach((pr, j) => {
+      const R = this.rows[j];
+      if (!R) return;
+      if (!pr) { if (R.dots.length) { R.dots = []; R.dirty = true; } return; }
+      if (R.color !== pr.color || R.side !== pr.side || R.line !== pr.line) { R.color = pr.color; R.side = pr.side; R.line = pr.line; R.dirty = true; }
+      if (R.dots.length > pr.dots.length) { R.dots.length = pr.dots.length; R.dirty = true; }
+      let until = R.until;
+      pr.dots.forEach((d, i) => {
+        const q = d.up ? 1 : 0, o = R.dots[i];
+        // a peg new to the row stands at once, as a new element did; while the intro holds the board, or for reduced motion, every change is at once
+        if (!o || instant) {
+          if (o) { chanSet(o.q, q); chanSet(o.op, d.op); } else R.dots[i] = { q: chan(q), op: chan(d.op) };
+          R.dirty = true;
+          return;
+        }
+        if (chanTo(o.q, q, now, d.wd, 460, d.up ? CURVE.pop : CURVE.settle)) until = Math.max(until, o.q.t0 + 460);
+        if (chanTo(o.op, d.op, now, 0, 200, CURVE.ease)) until = Math.max(until, o.op.t0 + 200);
+      });
+      R.until = until;
+    });
+  }
+
+  kick() {
+    if (this.raf || this.gone || !this.visible || typeof requestAnimationFrame !== "function") return;
+    this.raf = requestAnimationFrame(() => { this.raf = 0; this.frame(false); });
+  }
+
+  // One frame: every canvas that is moving, or has something new to show, is drawn for this moment; while any is still moving the next frame is asked for. sync is a draw outside the frames (after a resize), which leaves the hop's clocks alone.
+  frame(sync) {
+    if (this.gone) return;
+    const now = performance.now();
+    const dt = sync || !this.last ? 0 : Math.min(0.1, (now - this.last) / 1000);
+    if (!sync) this.last = now;
+    let more = this.drawBoard(now, dt);
+    this.rows.forEach(R => { if (this.drawRow(R, now)) more = true; });
+    if (more) this.kick();
+    else if (!sync) this.last = 0;
+  }
+
+  // Sizes a canvas's pixels to the screen pixels it covers (overSample() times as many on a 1x screen); s is the canvas pixels for each page pixel
+  size(T) {
+    const m = overSample(), dpr = screenPx(), ew = T.w * dpr, eh = T.h * dpr;
+    // the observer's own count of screen pixels is used where it agrees with the page's (to within rounding); otherwise the screen pixels the canvas's edges land on, rounded the way the browser rounds them
+    let dw = T.dw && Math.abs(T.dw - ew) <= 1.5 ? T.dw : 0, dh = T.dh && Math.abs(T.dh - eh) <= 1.5 ? T.dh : 0;
+    if (!dw || !dh) {
+      const r = T.cv.getBoundingClientRect();
+      if (Math.abs(r.width - T.w) < 0.05 && Math.abs(r.height - T.h) < 0.05) { dw = Math.round((r.left + r.width) * dpr) - Math.round(r.left * dpr); dh = Math.round((r.top + r.height) * dpr) - Math.round(r.top * dpr); }
+      else { dw = Math.round(ew); dh = Math.round(eh); }
+    }
+    const bw = Math.max(1, dw * m), bh = Math.max(1, dh * m);
+    if (T.cv.width !== bw) T.cv.width = bw;
+    if (T.cv.height !== bh) T.cv.height = bh;
+    T.s = bw / T.w;
+  }
+
+  // The soft shadow under a seat (v18): a warm disc the size of a peg that fades to nothing at its rim, squashed by the camera like the board. It is drawn once for each size and copied under each standing peg, stretched down the page as the peg stands up; being soft, it is the one piece copied as a picture rather than drawn afresh. u is canvas pixels to a unit.
+  shadowSprite(u, g, psh) {
+    const B = this.b, key = [u.toFixed(4), g.key, psh].join("|");
+    if (B.shKey === key) return B.shSprite;
+    B.shKey = key;
+    B.shSprite = null;
+    if (!(psh > 0)) return null;
+    const rx = g.r * u, ry = g.ry * u, w = Math.ceil(2 * rx + 4), h = Math.ceil(2 * ry + 4);
+    const cv = document.createElement("canvas");
+    cv.width = w; cv.height = h;
+    const c = cv.getContext("2d");
+    c.translate(w / 2, h / 2);
+    c.scale(1, ry / rx);
+    const gr = c.createRadialGradient(0, 0, 0, 0, 0, rx);
+    gr.addColorStop(0.3, ink(0.11 * psh)); gr.addColorStop(0.68, ink(0.05 * psh)); gr.addColorStop(1, ink(0));
+    c.fillStyle = gr; c.beginPath(); c.arc(0, 0, rx, 0, TAU); c.fill();
+    B.shSprite = { cv: cv, w: w, h: h, cx: w / 2, top: h / 2 - ry };
+    return B.shSprite;
+  }
+
+  // The half circle at this moment. Every hole, foot, side and top is drawn as an exact shape where it stands, as the browser drew v21's, with its hairline inside its edge (the Outlines tweak; it keeps its width in page pixels, whatever size the board draws).
+  drawBoard(now, dt) {
+    const B = this.b, g = B.geo;
+    if (!B.ctx || !g || !B.pegs || !B.tc || B.w < 1 || B.h < 1) return false;
+    const live = B.hopping && B.nUp > 0;   // v12: the majority hop is running
+    const active = live || now < B.until;
+    if (!active && !B.dirty) return false;
+    this.size(B);
+    const u = B.cv.width / g.W, ctx = B.ctx, pegs = B.pegs, n = pegs.length, tc = B.tc;
+    const sh = this.shadowSprite(u, g, B.psh);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = 1;
+    ctx.clearRect(0, 0, B.cv.width, B.cv.height);
+    const ox = g.ml * u, oy = g.mt * u, rU = g.riseUp, sink = g.sink, gs = g.ssu - 1;
+    const rx = g.r * u, ry = g.ry * u, reach = g.hy + 0.05, S = this.shapes(rx, ry, g.hx * u, g.hy * u);
+    // First every peg's height and hop for this moment, and the shadows, which lie under every peg (v16). A sunk peg's shadow sits inside its hole, so only shadows reaching past the hole are drawn.
+    for (let i = 0; i < n; i++) {
+      const p = pegs[i];
+      if (live && p.up) p.clock += dt;
+      p.qv = chanAt(p.q, now);
+      let h = 0;
+      const amp = chanAt(p.amp, now);
+      if (amp !== 0) {
+        const on = chanAt(p.on, now);
+        if (on !== 0) h = amp * B.hopk * p.hh * hopAt((p.clock % p.hd) / p.hd) * on;
+      }
+      p.h = h;
+      if (!sh) continue;
+      const sY = (1 + gs * p.qv) * (1 + h * g.shk);
+      if (g.ry * (2 * sY - 1) > reach) ctx.drawImage(sh.cv, ox + g.x[i] * u - sh.cx, oy + g.y[i] * u - ry - sh.top * sY, sh.w, sh.h * sY);
+    }
+    // Then the pegs, back to front, so nearer pegs hide the feet of those behind: hole, foot, side, top. A hop lifts the top and stretches the side to keep up (v12). Each shape is built once (shapes) and moved into place, which is much quicker than building it afresh for every peg.
+    const order = g.depth;
+    for (let j = 0; j < n; j++) {
+      const i = order[j], p = pegs[i], q = p.qv, h = p.h;
+      const X = ox + g.x[i] * u, Y = oy + g.y[i] * u;
+      const kh = fadeAt(p.hole, now);
+      ctx.setTransform(1, 0, 0, 1, X, Y);
+      ctx.fillStyle = kh >= 1 || !HOLE_RGB[p.hole.f] ? HOLE[p.hole.t] : mix(HOLE_RGB[p.hole.f], HOLE_RGB[p.hole.t], kh);
+      ctx.fill(S.hole);
+      // the peg's colours for this moment, part of the way through a fade if one is running (one the Outlines tweak has since replaced is simply dropped)
+      const T = tc[p.col.t];
+      if (!T) continue;
+      const F = tc[p.col.f] || T, k = fadeAt(p.col, now);
+      let cc = T.c, cs = T.s, ck = T.k, lw = T.lw;
+      if (k < 1 && F !== T) { cc = mix(F.cr, T.cr, k); cs = mix(F.sr, T.sr, k); ck = mix(F.kr, T.kr, k); lw = F.lw + (T.lw - F.lw) * k; }
+      lw *= B.s;
+      const topY = sink - (rU + sink) * q - rU * h, footY = sink * (1 - q), band = rU * q * (1 + h);
+      if (band > 0.01 || Math.abs(topY - footY) > 0.01) this.oval(ctx, S, X, Y + footY * u, cs, ck, lw);
+      if (band > 0.01) {
+        const bh = band * u;
+        ctx.setTransform(1, 0, 0, 1, X, Y);
+        ctx.fillStyle = cs; ctx.fillRect(-rx, -bh, 2 * rx, bh);
+        if (lw > 0) { ctx.fillStyle = ck; ctx.fillRect(-rx, -bh, lw, bh); ctx.fillRect(rx - lw, -bh, lw, bh); }
+      }
+      this.oval(ctx, S, X, Y + topY * u, cc, ck, lw);
+    }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    B.dirty = active;
+    return active;
+  }
+
+  // The shapes a seat is drawn with, centred on 0,0 and built once for each size: its hole, a peg's oval, and the oval inside its hairline for each hairline width (rounded to a twentieth of a pixel, so a fading line reuses a few)
+  shapes(rx, ry, hx, hy) {
+    const B = this.b, key = [rx, ry, hx, hy].join("|");
+    if (B.shapeKey === key) return B.shapes;
+    const make = (a, b) => { const p = new Path2D(); p.ellipse(0, 0, Math.max(0, a), Math.max(0, b), 0, 0, TAU); return p; };
+    B.shapeKey = key;
+    B.shapes = { hole: make(hx, hy), peg: make(rx, ry), inner: {}, rx: rx, ry: ry, make: make };
+    return B.shapes;
+  }
+
+  // A foot or a top: an oval in fill with a hairline of width lw in line inside its edge, as v21's inset outline was
+  oval(ctx, S, x, y, fill, line, lw) {
+    ctx.setTransform(1, 0, 0, 1, x, y);
+    if (lw > 0) {
+      const w = Math.round(lw * 20) / 20, inner = S.inner[w] || (S.inner[w] = S.make(S.rx - w, S.ry - w));
+      ctx.fillStyle = line; ctx.fill(S.peg);
+      ctx.fillStyle = fill; ctx.fill(inner);
+    } else { ctx.fillStyle = fill; ctx.fill(S.peg); }
+  }
+
+  // The soft shadow under a party row's peg: a disc the size of the peg, blurred 1.5px as v21's box-shadow was, in the same warm tone
+  dotShadow(D, s, psh) {
+    if (!(psh > 0)) return null;
+    const key = D + "|" + s + "|" + psh;
+    if (this.ds && this.ds.key === key) return this.ds;
+    const blur = 1.5 * s, rad = D / 2 * s, size = Math.ceil(2 * rad + 4 * blur + 4);
+    const cv = document.createElement("canvas");
+    cv.width = cv.height = size;
+    const c = cv.getContext("2d");
+    c.shadowColor = ink(0.07 * psh); c.shadowBlur = blur; c.shadowOffsetX = size;
+    c.fillStyle = "#000";
+    c.beginPath(); c.arc(size / 2 - size, size / 2, rad, 0, TAU); c.fill();
+    this.ds = { key: key, cv: cv, c: size / 2 };
+    return this.ds;
+  }
+
+  // A party row's pegs, column by column as v21's grid laid them: the shadows, then the outlines (a .25px ring round the top and round the side), the sides, then the tops. A picked party's pegs stand 1.8 times their width (dh), which lifts each top by dh times the camera's tilt (hk) and casts its shadow dh times the Sun angle's reach (shf) down the page.
+  drawRow(R, now) {
+    const rg = this.rg;
+    if (!R.ctx || !rg || R.w < 1 || R.h < 1) return false;
+    const active = now < R.until;
+    if (!active && !R.dirty) return false;
+    this.size(R);
+    const ctx = R.ctx, s = R.s, dots = R.dots, n = dots.length;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = 1;
+    ctx.clearRect(0, 0, R.cv.width, R.cv.height);
+    if (n && R.color && rg.D > 0) {
+      const D = rg.D, rad = D / 2 * s, ring = rad + 0.25 * s, m = ROW_PAD * s, top = D * 1.8 * rg.hk;
+      const sp = this.dotShadow(D, s, rg.psh);
+      const xs = new Float64Array(n), ys = new Float64Array(n), lift = new Float64Array(n), fall = new Float64Array(n), op = new Float64Array(n);
+      let mixed = false;
+      for (let i = 0; i < n; i++) {
+        const d = dots[i], col = Math.floor(i / rg.R), row = i % rg.R, dh = 1.8 * D * chanAt(d.q, now) * s;
+        xs[i] = m + col * (D + rg.dg) * s + rad;
+        ys[i] = m + (top + row * (D + rg.dv)) * s + rad;
+        lift[i] = dh * rg.hk; fall[i] = dh * rg.shf;
+        op[i] = chanAt(d.op, now);
+        if (op[i] !== 1) mixed = true;
+      }
+      const paint = (list, a) => {
+        ctx.globalAlpha = a;
+        if (sp) list.forEach(i => { ctx.drawImage(sp.cv, xs[i] - sp.c, ys[i] + fall[i] - sp.c); });
+        if (R.line) {
+          // the side's ring, then the top's, as two layers the way v21's two box-shadows were: on a flat peg they lie one on the other, and their soft edges darken together
+          ctx.fillStyle = R.line;
+          ctx.beginPath();
+          list.forEach(i => { ctx.moveTo(xs[i] + ring, ys[i]); ctx.arc(xs[i], ys[i], ring, 0, TAU); });
+          ctx.fill();
+          ctx.beginPath();
+          list.forEach(i => { ctx.moveTo(xs[i] + ring, ys[i] - lift[i]); ctx.arc(xs[i], ys[i] - lift[i], ring, 0, TAU); });
+          ctx.fill();
+        }
+        let sides = false;
+        ctx.fillStyle = R.side; ctx.beginPath();
+        list.forEach(i => { if (lift[i] > 0.01) { sides = true; ctx.moveTo(xs[i] + rad, ys[i]); ctx.arc(xs[i], ys[i], rad, 0, TAU); } });
+        if (sides) ctx.fill();
+        ctx.fillStyle = R.color; ctx.beginPath();
+        list.forEach(i => { const y = ys[i] - lift[i]; ctx.moveTo(xs[i] + rad, y); ctx.arc(xs[i], y, rad, 0, TAU); });
+        ctx.fill();
+      };
+      const all = [];
+      for (let i = 0; i < n; i++) all.push(i);
+      if (!mixed) paint(all, 1);
+      else {
+        // pegs a suggested path leaves out of Other fade to 0.3, each opacity drawn as a batch of its own
+        const groups = new Map();
+        all.forEach(i => { const a = Math.round(op[i] * 100) / 100; if (!groups.has(a)) groups.set(a, []); groups.get(a).push(i); });
+        groups.forEach((list, a) => { if (a > 0) paint(list, a); });
+      }
+      ctx.globalAlpha = 1;
+    }
+    R.dirty = active;
+    return active;
+  }
+
+  destroy() {
+    this.gone = true;
+    if (this.raf && typeof cancelAnimationFrame === "function") cancelAnimationFrame(this.raf);
+    this.raf = 0;
+    if (this.ro) this.ro.disconnect();
+    if (this.io) this.io.disconnect();
+  }
+}
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    // v15: demo is the intro's phase: "hold" (the full board, standing still; where the embed opens unless the Intro tweak is Off or the reader asks for reduced motion), "out" (draining from the right), or null once it has run
+    const introOn = ((props && props.intro) ?? "On view and poll switch") !== "Off" && !reducedMotion();
+    // v17: fit is the rows of pegs (and columns) picked for the room the party rows have, null until they have been measured
+    this.state = { pollId: null, picked: [], oth: 0, activePath: -1, info: false, demo: introOn ? "hold" : null, calm: 0, fit: null };
+    this.layouts = {};
+    this.tones = {};
+    this.introTimers = [];
+    // v16: wonId counts majority wins, so each new win gets its own hop burst; calm (in state) is the win whose burst has run its course
+    this.wonId = 0;
+    this.chartId = "e-chart-" + Math.random().toString(36).slice(2, 10);
+    this.partsId = "e-parts-" + Math.random().toString(36).slice(2, 10);
+    // v19: the i button and the About this poll panel get ids of their own (one per artboard on the canvas), so a click can be checked against them
+    this.eyeId = "e-eye-" + Math.random().toString(36).slice(2, 10);
+    this.infoId = "e-info-" + Math.random().toString(36).slice(2, 10);
+    // v24: the half circle's canvas and the box (watched, so drawing stops while the embed is out of view) get ids too; the painter draws the pegs, and a mouse over the chart names the seat under it
+    this.boardId = "e-board-" + Math.random().toString(36).slice(2, 10);
+    this.boxId = "e-box-" + Math.random().toString(36).slice(2, 10);
+    this.painter = new PegPainter();
+    this.hoverPeg = e => this.showSeat(e);
+    this.leavePeg = e => { const el = e && e.currentTarget; if (el && el.removeAttribute) el.removeAttribute("title"); };
+    // v25: Other's minus and plus: press is a press on one of them while it lasts (held once it has stepped on its own); letting go anywhere, or the pointer sliding off the button, stops a held press (stopHold), and a press the browser takes over for a scroll, or the page losing focus, ends it for good (cancelHold)
+    this.press = null;
+    this.stepT = 0;
+    this.stopHold = () => { clearTimeout(this.stepT); this.stepT = 0; };
+    this.cancelHold = () => { if (this.press) this.press.held = true; this.stopHold(); };
+  }
+
+  // v17: watches the party section's size and picks the rows of pegs for it again whenever it changes (the embed resized, the fonts arriving and rewrapping the title, the View as tweak)
+  watchRows() {
+    let tries = 0;
+    const go = () => {
+      if (this.gone) return;
+      const el = typeof document !== "undefined" ? document.getElementById(this.partsId) : null;
+      if (!el) { if (tries++ < 20) this.fitTimer = setTimeout(go, 50); return; }
+      if (typeof ResizeObserver === "function") { this.ro = new ResizeObserver(() => this.fitRows()); this.ro.observe(el); }
+      this.fitRows();
+    };
+    go();
+  }
+
+  // v17: measures the party section (its layout size, so the canvas's zoom doesn't count) and reads the rows' measures from the CSS, then keeps the rows of pegs that give the biggest pegs. v24: it keeps the peg size it worked out, and the gaps, too, for the canvases (and --fit-dot)
+  fitRows() {
+    if (this.gone || typeof document === "undefined" || typeof getComputedStyle !== "function") return;
+    const el = document.getElementById(this.partsId);
+    const rows = el && el.querySelector(".e-rows");
+    if (!rows || !el.clientWidth || !el.clientHeight) return;
+    const cs = getComputedStyle(rows);
+    const px = (k, d) => { const v = parseFloat(cs.getPropertyValue(k)); return isFinite(v) ? v : d; };
+    this.fitHkUsed = this.fitHk;
+    const fit = bestFit(el.clientWidth, el.clientHeight, { rp: px("--rp", 12), name: px("--name", 96), g: px("--g", 8), count: px("--count", 42), dg: px("--dg", 4), dv: px("--dv", 4), dmax: px("--dmax", 9), air: px("--air", 8), n: px("--nrows", 6), hk: this.fitHk || 0.105 });
+    fit.dot = Math.max(1, fit.dot); fit.dg = px("--dg", 4); fit.dv = px("--dv", 4);
+    const was = this.state.fit;
+    if (!was || was.rows !== fit.rows || was.cols !== fit.cols || was.dot !== fit.dot || was.dg !== fit.dg || was.dv !== fit.dv) this.setState({ fit: fit });
+  }
+
+  // v15 intro. The Intro tweak: "On view and poll switch" (the default), "On view only" or "Off".
+  introMode() { return this.props.intro ?? "On view and poll switch"; }
+
+  // Stops the intro, or the wait for it, for good: any click that changes the board calls this
+  stopIntro() {
+    this.introTimers.forEach(t => clearTimeout(t));
+    this.introTimers = [];
+    this.introDone = true;
+    if (this.io) { this.io.disconnect(); this.io = null; }
+  }
+
+  // Drains the full board after the Hold time: the wave out from the right, then the board hands back to the reader
+  drainIntro() {
+    const waveT = num(this.props.waveTime, 600, 0, 3000), holdT = num(this.props.holdTime, 1000, 0, 6000);
+    const at = (t, demo) => { this.introTimers.push(setTimeout(() => { if (!this.gone) this.setState({ demo: demo }); }, t)); };
+    at(holdT, "out");
+    at(holdT + waveT + INTRO.settle, null);
+  }
+
+  // A poll switch with nothing picked: the new poll's full board at once (patch is the switch), standing still, then the drain
+  playIntro(patch) {
+    this.stopIntro();
+    this.setState(Object.assign({ demo: "hold" }, patch || {}));
+    this.drainIntro();
+  }
+
+  // v24: hands what the last render decided to the painter; if the canvases aren't in the page yet (the first render can land before them), it looks again a few times
+  syncPegs() {
+    if (this.gone) return;
+    this.painter.apply(this.plan);
+    clearTimeout(this.pegTimer);
+    if (!this.painter.b.cv && (this.pegTries = (this.pegTries || 0) + 1) < 20) this.pegTimer = setTimeout(() => this.syncPegs(), 50);
+  }
+
+  // v24: the seats are drawn on a canvas, so a mouse over one names its party through the chart's title, as each peg's own title did before (the pointer is matched to the nearest seat's hole, or to its top where it stands)
+  showSeat(e) {
+    const el = e && e.currentTarget, B = this.painter.b, g = B.geo;
+    if (!el || !el.setAttribute) return;
+    let text = "";
+    const t = e.target;
+    if (g && B.cv && B.pegs && !(t && t.closest && t.closest("button"))) {
+      const box = B.cv.getBoundingClientRect();
+      if (box.width > 0 && box.height > 0) {
+        const ux = (e.clientX - box.left) / box.width * g.W - g.ml, uy = (e.clientY - box.top) / box.height * g.H - g.mt;
+        let best = 1, hit = -1;
+        B.pegs.forEach((p, i) => {
+          const dx = (ux - g.x[i]) / g.hx, lift = (g.riseUp + g.sink) * Math.max(0, p.qv || 0);
+          const dy0 = (uy - g.y[i]) / g.hy, dy1 = (uy - g.y[i] + lift) / g.hy;
+          const d = dx * dx + Math.min(dy0 * dy0, dy1 * dy1);
+          if (d < best) { best = d; hit = i; }
+        });
+        if (hit >= 0) text = B.pegs[hit].title;
+      }
+    }
+    if (text) { if (el.getAttribute("title") !== text) el.setAttribute("title", text); }
+    else if (el.hasAttribute("title")) el.removeAttribute("title");
+  }
+
+  // v25: Other's minus and plus. A press steps once, when it lets go (its click); held down, it steps again after STEP.wait and then faster and faster, down to every STEP.fastest ms, until it is let go, the pointer slides off the button, or Other is all out or all in, and the click that ends a held press is passed over. Enter or Space steps once a press.
+  pressStep(e, dir) {
+    if (e && e.button) return;   // the main button only (a finger or a pen counts as the main button)
+    this.stopHold();
+    const press = this.press = { held: false, v: null };
+    const run = (wait, next) => {
+      this.stepT = setTimeout(() => {
+        if (this.gone || this.press !== press) return;
+        press.held = true;
+        const was = press.v != null ? press.v : this.state.oth;
+        press.v = this.stepOth(dir, was);
+        if (press.v !== was) run(next, Math.max(STEP.fastest, Math.round(next * STEP.speedup)));
+      }, wait);
+    };
+    run(STEP.wait, STEP.every);
+  }
+
+  clickStep(e, dir) {
+    const p = this.press;
+    this.press = null;
+    this.stopHold();
+    if (p && p.held && !(e && e.detail === 0)) return;   // a held press has stepped already (a click from the keyboard, detail 0, always steps)
+    this.stepOth(dir);
+  }
+
+  // Moves Other's seats in the coalition by dir, from where a held press has got to (from) or else from the state, between none of them and all of them, and returns where they are now. Other's first seat goes on the end of the coalition's stack; Other keeps that place while any of its seats are in, and leaves the stack when the last one goes.
+  stepOth(dir, from) {
+    const st = this.state, poll = METRO.polls.find(p => p.id === st.pollId) || METRO.polls[0];
+    const n = poll.seats.OTH || 0, cur = from != null ? from : st.oth, next = Math.max(0, Math.min(n, cur + dir));
+    if (next === cur) return cur;
+    const rest = st.picked.filter(k => k !== "OTH");
+    const picked = next === 0 ? rest : (st.picked.includes("OTH") ? st.picked : rest.concat("OTH"));
+    this.stopIntro();
+    this.setState({ pollId: poll.id, picked: picked, oth: next, activePath: -1, demo: null });
+    return next;
+  }
+
+  // The embed opens on the full board; once half the chart is on screen (or straight away where that can't be watched) the Hold time starts counting, unless a click got there first
+  componentDidMount() {
+    if (super.componentDidMount) super.componentDidMount();
+    this.watchRows();   // v17
+    this.syncPegs();    // v24
+    // v25: letting go anywhere ends a held press on Other's minus or plus
+    if (typeof window !== "undefined") { window.addEventListener("pointerup", this.stopHold); window.addEventListener("pointercancel", this.cancelHold); window.addEventListener("blur", this.cancelHold); }
+    if (this.state.demo !== "hold") return;
+    const queue = () => {
+      if (this.introDone) return;
+      this.introDone = true;
+      if (this.io) { this.io.disconnect(); this.io = null; }
+      this.drainIntro();
+    };
+    let tries = 0;
+    const watch = () => {
+      if (this.introDone || this.gone) return;
+      const el = typeof document !== "undefined" ? document.getElementById(this.chartId) : null;
+      if (el && typeof IntersectionObserver === "function") {
+        this.io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting && e.intersectionRatio >= INTRO.view - 0.01)) queue(); }, { threshold: INTRO.view });
+        this.io.observe(el);
+      } else if (!el && tries++ < 20) this.introTimers.push(setTimeout(watch, 50));
+      else queue();
+    };
+    watch();
+  }
+
+  // v19: while the About this poll panel is open, a click or tap anywhere but the i button or one of the panel's links closes it (the click still does whatever it was for, so a tap on a party picks it as well), and so does the reader clicking away from the embed altogether, which takes the focus off its window, unless they did that by opening one of the panel's links
+  watchInfo(open) {
+    if (typeof document === "undefined" || typeof window === "undefined") return;
+    if (open && !this.infoAway) {
+      const path = e => e.composedPath ? e.composedPath() : [e.target];
+      const close = () => { if (!this.gone && this.state.info) this.setState({ info: false }); };
+      this.infoLink = false;
+      this.infoAway = e => {
+        const eye = document.getElementById(this.eyeId), panel = document.getElementById(this.infoId), p = path(e);
+        this.infoLink = !!panel && p.some(n => n && n.tagName === "A" && panel.contains(n));
+        if (this.infoLink || (eye && p.indexOf(eye) >= 0)) return;
+        close();
+      };
+      this.infoBlur = () => {
+        const a = document.activeElement, panel = document.getElementById(this.infoId);
+        if (this.infoLink || (a && a.tagName === "A" && panel && panel.contains(a))) return;
+        close();
+      };
+      this.infoBack = () => { this.infoLink = false; };
+      document.addEventListener("click", this.infoAway, true);
+      window.addEventListener("blur", this.infoBlur);
+      window.addEventListener("focus", this.infoBack);
+    } else if (!open && this.infoAway) {
+      document.removeEventListener("click", this.infoAway, true);
+      window.removeEventListener("blur", this.infoBlur);
+      window.removeEventListener("focus", this.infoBack);
+      this.infoAway = this.infoBlur = this.infoBack = null;
+    }
+  }
+
+  // v16: once a new majority win is on the board, the hop runs for HOP.burst after the wave crosses the dashed line, then the board settles (Hop length: Short burst)
+  componentDidUpdate(prevProps, prevState) {
+    if (super.componentDidUpdate) super.componentDidUpdate(prevProps, prevState);
+    this.watchInfo(!!this.state.info);   // v19: clicks away from the About this poll panel are only listened for while it is open
+    this.syncPegs();   // v24: the painter takes this render's pegs
+    // v17: a new camera angle changes how much room a picked peg needs to stand, so the rows of pegs are picked again
+    if (this.ro && this.fitHk !== this.fitHkUsed) this.fitRows();
+    const w = this.wave;
+    if (!w || !w.reached || this.burstFor === this.wonId || (this.props.hopLength ?? "Short burst") !== "Short burst") return;
+    const id = this.burstFor = this.wonId;
+    clearTimeout(this.burstTimer);
+    this.burstTimer = setTimeout(() => { if (!this.gone && this.wonId === id) this.setState({ calm: id }); }, (w.majd || 0) + HOP.burst);
+  }
+
+  componentWillUnmount() {
+    if (super.componentWillUnmount) super.componentWillUnmount();
+    this.gone = true;
+    this.watchInfo(false);   // v19
+    this.introTimers.forEach(t => clearTimeout(t));
+    clearTimeout(this.burstTimer);
+    clearTimeout(this.fitTimer);
+    clearTimeout(this.pegTimer);   // v24
+    if (this.io) this.io.disconnect();
+    if (this.ro) this.ro.disconnect();
+    this.painter.destroy();   // v24
+    clearTimeout(this.stepT);   // v25
+    if (typeof window !== "undefined") { window.removeEventListener("pointerup", this.stopHold); window.removeEventListener("pointercancel", this.cancelHold); window.removeEventListener("blur", this.cancelHold); }
+  }
+
+  renderVals() {
+    const st = this.state;
+    const metro = METRO;
+    const poll = metro.polls.find(p => p.id === st.pollId) || metro.polls[0];
+    const picked = st.picked, oth = st.oth;
+    const N = metro.seats, MAJ = metro.majority;
+    const go = patch => { this.stopIntro(); this.setState(Object.assign({ pollId: poll.id, demo: null }, patch)); };   // v15: any pick ends the intro
+    const seatsOf = k => poll.seats[k] || 0;
+    const tone = hex => this.tones[hex] || (this.tones[hex] = tonesOf(hex));
+
+    // Poll tabs: the chosen poll is solid black; the others sit on light grey. Only the outer top corners of the first and last tab are rounded.
+    const polls = metro.polls.map((p, i, all) => {
+      const on = p === poll;
+      return {
+        name: POLLS[p.id].tab, when: POLLS[p.id].when, pressed: on ? "true" : "false",
+        radius: (i === 0 ? "8px" : "0") + " " + (i === all.length - 1 ? "8px" : "0") + " 0 0",
+        bg: on ? DM.black : DM.grey3, fg: on ? DM.white : DM.ink1, sub: on ? PRINT.tan : PRINT.ink2,
+        cls: on ? "is-on" : "is-idle", cursor: on ? "default" : "pointer",
+        // v12: switching polls keeps the picked parties (and Other, at the new poll's full share); only a suggested path is dropped
+        pick: () => {
+          if (on) return;
+          // v25: a part of Other keeps its count (no more than this poll's Other holds), and all of Other stays all of it
+          const othNow = this.state.oth, othAllNow = poll.seats.OTH || 0, othAllNew = p.seats.OTH || 0;
+          const othNew = othNow <= 0 ? 0 : (othNow >= othAllNow ? othAllNew : Math.min(othNow, othAllNew));
+          const keep = this.state.picked.filter(k => k !== "OTH" || othNew > 0);   // v14: Other keeps its place in the stack unless this poll has no Other seats
+          const next = { pollId: p.id, picked: keep, oth: othNew, activePath: -1 };
+          // v15: with nothing picked, a new poll replays the intro: its full board at once, standing still, then the drain; with parties picked they carry over as before and nothing replays
+          if (!keep.length && !othNew && this.introMode() === "On view and poll switch" && !reducedMotion()) return this.playIntro(next);
+          this.stopIntro();
+          this.setState(Object.assign(next, { demo: null }));
+        }
+      };
+    });
+
+    // About this poll: the i toggles the panel, which shows the chosen poll; v19: a click or tap anywhere but the i or one of the panel's links closes it (watchInfo)
+    const infoOpen = !!st.info;
+    const I = POLL_INFO[poll.id];
+    const info = { title: I.title, body: I.body, url: I.url, linkText: I.link, facts: I.facts.map(f => ({ k: f[0], v: f[1] })) };
+
+    // Suggested paths. Labels are kept short so each fits on one line in a phone-width row.
+    const pathLabel = pt => {
+      let s = pt.p.map(k => PARTIES[k].name).join(" + ");
+      if (pt.p.length === 1 && !pt.o) s += " alone";
+      if (pt.o) s += pt.o === poll.seats.OTH ? " + Other" : " + " + pt.o + " of Other";
+      return s;
+    };
+    const paths = poll.paths.map((pt, i) => {
+      const on = i === st.activePath;
+      const label = pathLabel(pt);
+      const total = pt.p.reduce((a, k) => a + seatsOf(k), 0) + pt.o;
+      return {
+        label: label, seatsText: String(total), aria: label + ": " + total + " seats",
+        pressed: on ? "true" : "false", cls: on ? "path is-on" : "path",
+        bg: on ? DM.panel : DM.white, fg: on ? DM.white : DM.ink1, border: on ? DM.panel : DM.grey2,
+        pick: () => go({ picked: pt.p.concat(pt.o ? ["OTH"] : []), oth: pt.o, activePath: i })
+      };
+    });
+
+    // The camera looks down at the board at cameraAngle (90 = straight down; the default 80 is just off it). tilt is how far that is from straight down:
+    // the board squashes front to back by cos(tilt) and peg heights stand up the screen by sin(tilt).
+    // Everything on the chart is measured in the half circle's 1000-wide units; 1 unit = 0.1cqw of the chart.
+    const tilt = (90 - num(this.props.cameraAngle, 80, 15, 90)) * Math.PI / 180;
+    const hScale = num(this.props.pegHeight, 1, 0.3, 2.5);
+    // v12: the majority hop's height, as a multiple of a picked peg's height (0 turns it off), and its speed
+    const hopH = num(this.props.hopHeight, 1.5, 0, 3), hopV = num(this.props.hopSpeed, 1, 0.25, 3);
+    const hopDur = i => HOP.tempo * (1 + HOP.spread * (2 * rnd(i, 2) - 1)) / hopV;
+    // v13: a sweep round the whole half circle takes waveT ms (the Wave time tweak; 0 = everything at once), and the party rows move at the same pace per seat
+    const waveT = num(this.props.waveTime, 600, 0, 3000), perSeat = waveT / N;
+    // v14: the sweep is eased (the Wave ease tweak). easeAt(f) is how far into its time a sweep is when it has gone f of its way along.
+    const ease = WAVE_EASE[this.props.waveEase] || WAVE_EASE["Smooth start and end"];
+    const easeAt = f => easeTime(ease, f);
+    const ms = v => Math.round(v) + "ms";
+    const sq = Math.cos(tilt), hk = Math.sin(tilt);
+    this.fitHk = hk;   // v17: the party rows' fit needs it to know how much room a picked peg takes standing up
+    if (!this.layouts[N]) this.layouts[N] = seatLayout(N);
+    const lay = this.layouts[N];
+    const r = lay.r;
+    const up = PEG.up * hScale;
+    const TOP = up * hk * 1.18 + r * sq + 5;   // headroom above the board for the tallest pegs along the far edge, spring overshoot included
+    const SH = TOP + 530 * sq;                 // the chart's height
+    const cq = v => (v / 10).toFixed(3) + "cqw";
+    // v18: the sun's height above the board (the Sun angle tweak; 90 is straight overhead) sets how far a shadow falls for each unit of a peg's height
+    const shf = 1 / Math.tan(num(this.props.sunAngle, 75, 30, 89) * Math.PI / 180);
+    // v24: the board's measures for its canvas (boardGeo), worked out once for each set of tweaks, as v16's peg places were
+    const geoKey = [N, tilt, hScale, hopV, hopH, shf].join("|");
+    if (!this.geo || this.geo.key !== geoKey) this.geo = boardGeo(lay, { key: geoKey, TOP: TOP, SH: SH, sq: sq, hk: hk, up: up, shf: shf, hopH: hopH, hopDur: hopDur });
+    const geo = this.geo;
+    const stage = {
+      w: "min(100cqw, calc((100cqh - 40px) * " + (1000 / SH).toFixed(4) + "))",
+      // v24: the half circle's box is centred in the chart (below the flag's 40px band) by its own left, top and height rather than v21's translate(-50%, -50%), which could leave it between screen pixels and blur the canvas drawn in it
+      h: "calc(min(100cqw, calc((100cqh - 40px) * " + (1000 / SH).toFixed(4) + ")) * " + (SH / 1000).toFixed(5) + ")",
+      left: "calc(50cqw - min(100cqw, calc((100cqh - 40px) * " + (1000 / SH).toFixed(4) + ")) / 2)",
+      top: "calc(50cqh + 20px - min(100cqw, calc((100cqh - 40px) * " + (1000 / SH).toFixed(4) + ")) * " + (SH / 2000).toFixed(5) + ")",
+      // v17: the chart's height for each px of the box's width, so the chart can be exactly as tall as the half circle drawn at full width (plus the flag's 40px band)
+      k: (SH / 1000).toFixed(4),
+      stick: cq(TOP + 2.1 * sq), boardTop: cq(TOP), sq: sq.toFixed(4), hk: hk.toFixed(4),
+      // the dashed line stops short of the tally, which stands on the board's front edge
+      lineH: cq(Math.max(0, 495 - 75 / sq - 2.1)),
+      tallyBottom: ((SH - TOP - 495 * sq) / SH * 100).toFixed(2) + "%",
+      // v24: the canvas the pegs are drawn on: the chart's box, reaching out past it on every side as far as boardGeo says
+      cvL: cq(-geo.ml), cvT: cq(-geo.mt), cvW: cq(geo.W), cvH: cq(geo.H)
+    };
+
+    // Pegs: all near-white and sunk just below the board until something is picked; then the coalition pops up in party colours (filling the half circle from the left end, in the order its parties were picked from v14) and every other peg stays sunk and near-white.
+    const any = picked.length > 0 || oth > 0;
+    // v15: while the intro holds the full board (demo "hold") the board stacks every party from the left end in the order of the party rows (largest first, then Other), as though they had all been picked from the top down; demoStart is where each party's seats begin in that stack, which its row keeps time with when the board drains
+    const demo = st.demo, demoOn = demo === "hold";
+    const ranked = metro.order.filter(k => k !== "OTH" && poll.seats[k] != null).sort((a, b) => poll.seats[b] - poll.seats[a]);
+    const makeupOrder = ranked.concat(metro.order.filter(k => k === "OTH"), metro.order.filter(k => k !== "OTH" && poll.seats[k] == null));
+    const demoStart = {}, demoSeq = [];
+    makeupOrder.forEach(k => { const n = poll.seats[k] || 0; demoStart[k] = demoSeq.length; for (let i = 0; i < n; i++) demoSeq.push([k, true]); });
+    // v14: the coalition stacks on the board in the order its parties were picked (Other wherever it was picked), so each new pick fills the open seats after the coalition already standing
+    const seq = demoOn ? demoSeq : [];
+    if (!demoOn) {
+      const stack = picked.includes("OTH") || oth === 0 ? picked : picked.concat("OTH");
+      stack.forEach(k => { const n = k === "OTH" ? oth : seatsOf(k); for (let i = 0; i < n; i++) seq.push([k, true]); });
+      metro.order.forEach(k => {
+        if (k !== "OTH" && picked.includes(k)) return;
+        const n = k === "OTH" ? poll.seats.OTH - oth : seatsOf(k);
+        for (let i = 0; i < n; i++) seq.push([k, false]);
+      });
+    }
+    // v24: the colours a peg can take, each named by its colours and line (the Outlines tweak: each colour's deep shade, black ink, or no lines; empty pegs keep a pale line with ink), so the painter can make its pictures of them once
+    const lines = this.props.outlines ?? "Colour";
+    const tones = {};
+    const toneKey = (c, s, k, w) => { const key = c + "|" + s + "|" + k + "|" + w; tones[key] = { c: c, s: s, k: k, lw: w }; return key; };
+    const litKey = hex => { const t = tone(hex); return toneKey(t.c, t.s, lines === "Ink" ? DM.black : t.k, lines === "None" ? 0 : 0.35); };
+    const emptyKey = toneKey(EMPTY_TONES.c, EMPTY_TONES.s, lines === "Ink" ? "#dddddd" : EMPTY_TONES.k, lines === "None" ? 0 : 0.3);
+    metro.order.forEach(k => { litKey(PARTIES[k].color); });
+    const seats = lay.fill.map((p, i) => {
+      const k = seq[i] ? seq[i][0] : "OTH";
+      const lit = (any || demoOn) && (seq[i] ? seq[i][1] : false);
+      return { up: lit, color: lit ? PARTIES[k].color : "", tone: lit ? litKey(PARTIES[k].color) : emptyKey, hole: lit ? "dark" : "pale", title: PARTIES[k].name + ": " + poll.seats[k] + " seats", d: 0 };
+    });
+    // v13 wave. Against the board last drawn, find every peg that changes (it rises, sinks or changes colour). When the coalition grows, or keeps its size, they change
+    // in a sweep that runs clockwise from the first of them; when it shrinks, counter-clockwise from the last of them, so pegs leave in the opposite order to the one they
+    // came in. Each changing peg waits until the sweep reaches its angle (plus a few ms of scatter); every other peg waits 0ms. The sweep is worked out once for each new
+    // board, so a redraw that changes nothing on it (a tweak, say) keeps it. majd is when the sweep crosses the dashed line, if this change wins or loses the majority.
+    const tally = picked.reduce((s, k) => s + (k === "OTH" ? 0 : seatsOf(k)), 0) + oth;   // v14: "OTH" in picked only marks Other's place in the stack; its seats are oth
+    // v15: the board's own count (every seat while the intro shows them all) sets which way a wave runs; the Majority flag only ever counts the parties picked
+    const boardN = demoOn ? N : tally;
+    const reached = !demoOn && tally >= MAJ;
+    const keys = seats.map(s => s.color);
+    const sig = keys.join(",");
+    if (!this.wave || this.wave.sig !== sig) {
+      const was = this.wave, wd = keys.map(() => 0);
+      let majd = 0;
+      if (was && was.keys.length === keys.length) {
+        const ch = [];
+        keys.forEach((k, i) => { if (k !== was.keys[i]) ch.push(i); });
+        if (ch.length) {
+          // a board that shrinks (v15: the intro's drain included) sweeps back counter-clockwise, from the last peg that changes to the first
+          const back = boardN < was.tally;
+          const a0 = lay.fill[back ? ch[ch.length - 1] : ch[0]].a, a1 = lay.fill[back ? ch[0] : ch[ch.length - 1]].a;
+          // v14: the sweep across the changing pegs takes as long as v13's even one across the same arc, but eased along the way
+          const span = Math.abs(a1 - a0) || 1, sweepT = span / Math.PI * waveT;
+          ch.forEach(i => { wd[i] = easeAt(Math.abs(lay.fill[i].a - a0) / span) * sweepT + rnd(i, 5) * PEG.jitter; });
+          if (reached !== !!was.reached) majd = wd[MAJ - 1];
+        }
+      }
+      if (reached && !(was && was.reached)) this.wonId += 1;   // v16: a new majority win, which gets its own hop burst
+      this.wave = { sig: sig, keys: keys, tally: boardN, reached: reached, wd: wd, majd: majd };
+    }
+    seats.forEach((s, i) => { s.d = this.wave.wd[i]; });
+
+    // The Majority flag shows only while the parties picked (and any seats taken from Other) hold a majority: reached, worked out with the wave above (v15: never while the intro plays). Below it the flag hides in place, so nothing on the page moves.
+
+    // Party rows, most projected seats first, one peg per projected seat. Each row toggles that party in or out of a custom coalition.
+    // Tapping a party while a path is selected drops the path and starts a fresh selection with that party.
+    // "Other" toggles all of its seats at once (paths can still take part of it). Parties outside the coalition fade and their pegs sink flush.
+    // "Other" sits after the ranked parties, followed by any party this poll did not report separately.
+    const inPath = st.activePath >= 0;
+    const fadeOp = inPath ? "0.3" : "0.45";
+    // v14: picked keeps the order the parties were picked in, with "OTH" marking Other's place, so a new pick always goes on the end of the stack
+    const pickParty = k => {
+      const othAll = poll.seats.OTH || 0;
+      if (inPath) return go(k === "OTH" ? { picked: othAll ? ["OTH"] : [], oth: othAll, activePath: -1 } : { picked: [k], oth: 0, activePath: -1 });
+      const rest = picked.filter(x => x !== k);
+      if (k === "OTH") return go(oth > 0 ? { picked: rest, oth: 0, activePath: -1 } : { picked: othAll ? rest.concat("OTH") : rest, oth: othAll, activePath: -1 });
+      go({ picked: picked.includes(k) ? rest : picked.concat(k), activePath: -1 });
+    };
+    // (ranked and makeupOrder are worked out with the board above, since v15's intro stacks the board in the rows' order)
+    // v24: each row's pegs go to the painter (rowPlans), drawn on the row's own canvas; until the rows are measured, a row is laid out for 4 rows of pegs
+    const fitR = st.fit ? st.fit.rows : 4;
+    const rowPlans = [];
+    const makeup = makeupOrder.map((k, j) => {
+      const n = poll.seats[k], name = PARTIES[k].name, color = PARTIES[k].color;
+      // v19: a party's mark is its initials (or its name, for a party without any, and for Other); tw is the label's width in ems, so one too long for its column can draw smaller to fit
+      // v20: at the Label weight tweak's weight; tn is the label's letter count less one, for the letter-spacing between its letters
+      const tw = labelEm(name, num(this.props.labelWeight, 400, 100, 900)).toFixed(4), tn = String(Math.max(0, name.length - 1));
+      if (n == null) {
+        rowPlans.push(null);
+        return {
+          name: name, color: color, note: "Not reported; counted in Other", clickable: false, nr: true, op: any ? fadeOp : "1",
+          tw: tw, tn: tn, nameFg: PRINT.muted,
+          aria: name + ": not reported separately in this poll, so its support is counted in Other",
+          title: "Not reported separately in this poll, so its support is counted in Other"
+        };
+      }
+      const inN = k === "OTH" ? oth : (picked.includes(k) ? n : 0);
+      const on = inN > 0;
+      const lit = on || demoOn;   // v15: the intro lights every row as though picked (aria-pressed still says what is really picked)
+      const out = any && !on;
+      const partial = !demoOn && k === "OTH" && on && inN < n;
+      const dots = []; /* when a path takes only part of Other, the pegs it leaves out sink and fade */
+      // v13: a rising peg waits one step per seat counted from the left end of its row, a sinking one one step per seat counted from the right end
+      // v14: the row's sweep takes as long as before but runs on the same ease as the half circle's
+      // v15: while the intro runs, each peg instead keeps time with the seat it stands for in the intro's stack on the half circle, so a row drains from its right just as the wave crosses its party's seats; first is when the wave first reaches them
+      const rowT = Math.max(0, n - 1) * perSeat;
+      let first = Infinity;
+      for (let i = 0; i < n; i++) {
+        const left = partial && i >= inN, upD = lit && !left, w = demo ? this.wave.wd[demoStart[k] + i] || 0 : 0;
+        if (w < first) first = w;
+        dots.push({ up: upD, op: left ? 0.3 : 1, wd: demo ? w : rowT * easeAt((upD ? i : n - 1 - i) / Math.max(1, n - 1)) });
+      }
+      const t = tone(color), cvId = this.partsId + "-cv" + j;
+      rowPlans.push({ cvId: cvId, color: color, side: t.s, line: lines === "None" ? null : (lines === "Ink" ? DM.black : t.k), dots: dots });
+      // v25: Other's row has the minus and plus: its count is the seats in the coalition over Other's total (every seat while the intro shows them all), and each button greys out at its end
+      const isOth = k === "OTH", shown = demoOn ? n : inN;
+      return {
+        name: name, color: color, label: isOth ? String(shown) : String(n), of: isOth ? "/" + n : "", clickable: !isOth, nr: false, step: isOth,
+        lessCls: inN > 0 ? "" : "is-off", moreCls: inN < n ? "" : "is-off", lessOff: inN > 0 ? "false" : "true", moreOff: inN < n ? "false" : "true",
+        lessAria: "Take one of Other’s seats out of the coalition (" + inN + " of " + n + " in)", moreAria: "Add one of Other’s seats to the coalition (" + inN + " of " + n + " in)",
+        lessDown: e => this.pressStep(e, -1), moreDown: e => this.pressStep(e, 1), lessClick: e => this.clickStep(e, -1), moreClick: e => this.clickStep(e, 1), stopHold: this.stopHold,
+        tw: tw, tn: tn,
+        op: out ? fadeOp : "1", pressed: on ? "true" : "false",
+        // v19: picked, a party's label turned into a white button that lifts off the page with a drop shadow; v20: the white button is the hover state, and picked, the button is black with white letters (in the intro every lit label starts that way)
+        // v15: in the intro every mark starts lifted, and drops flat as the drain's wave first reaches its party's seats (pd)
+        markCls: lit ? "is-on" : "", nameFg: lit ? DM.white : DM.ink1,
+        pd: ms(demo && n > 0 ? first : 0),
+        // v24 revised: is-picked marks a party really in the coalition (not just lit by the intro), so its seat count can turn into an X under a mouse pointer
+        cls: (out ? "chip is-faded" : "chip") + (on ? " is-picked" : ""),
+        pick: () => pickParty(k),
+        aria: name + ": " + n + " projected seats" + (partial ? ", " + inN + " of them in this coalition" : ""),
+        // v24: the row's canvas, and how many columns of pegs the party takes, so its bar is as long as its share
+        cvId: cvId, pcols: String(Math.ceil(n / fitR))
+      };
+    });
+
+    // v16: the hop runs while the majority holds (Hop length: While it holds), or only for its burst (Short burst)
+    const hopping = reached && hopH > 0 && !((this.props.hopLength ?? "Short burst") === "Short burst" && st.calm === this.wonId);
+    // v18: the Shadow tweak under Pegs (how dark the pegs' shadows are)
+    const pegShade = num(this.props.pegShadow, 1, 0, 3);
+    const reduce = reducedMotion();
+    const F = st.fit;
+    // v24: what the painter draws after this render (componentDidMount and componentDidUpdate hand it over). snap is v15's is-snap: while the intro holds the full board, every peg is put in place at once
+    this.plan = {
+      boardId: this.boardId, boxId: this.boxId,
+      board: { geo: geo, seats: seats, tones: tones, toneKey: Object.keys(tones).join(";"), snap: demoOn, reduce: reduce, hopping: hopping, majd: demo ? 0 : this.wave.majd, hopk: hopH, psh: pegShade },
+      rows: rowPlans,
+      rowGeo: F ? { key: [F.dot, F.rows, F.dg, F.dv, hk, shf, pegShade].join("|"), D: F.dot, R: F.rows, dg: F.dg, dv: F.dv, hk: hk, shf: shf, psh: pegShade, snap: demoOn, reduce: reduce } : null
+    };
+
+    return {
+      frameMax: (this.props.viewAs ?? "Article width") === "Phone (358px)" ? "358px" : "659px",
+      polls: polls, paths: paths, makeup: makeup,
+      stage: stage,
+      // v17: the party rows: how many there are, and the rows of pegs picked for their room ("initial" until measured, which leaves the CSS's own guess in place); v24: and the peg size
+      partsId: this.partsId, nRows: makeup.length,
+      fit: { rows: F ? String(F.rows) : "initial", cols: F ? String(F.cols) : "initial", dot: F ? F.dot + "px" : "initial" },
+      // v24: how much further down than 4px a row's canvas reaches, for the longest shadow a picked peg can cast
+      rowShb: Math.ceil(1.8 * 1.18 * (F ? F.dot : 10) * shf) + "px",
+      // v19 and v20: the tweaks under Labels: Label size, Label weight, Letter spacing, Line height, Label pop and Label shadow
+      labelSize: num(this.props.labelSize, 17, 8, 40) + "px", labelWeight: String(num(this.props.labelWeight, 400, 100, 900)), letterSpacing: num(this.props.letterSpacing, -0.5, -4, 8) + "px", lineHeight: num(this.props.lineHeight, 1.2, 0.6, 3).toFixed(2), labelPop: num(this.props.labelPop, 4, 0, 16) + "px", labelShadow: num(this.props.labelShadow, 1.15, 0, 3).toFixed(2),
+      tally: tally, majority: MAJ,
+      // v15: is-snap holds everything still while the intro shows the full board
+      boxCls: (hopping ? "is-maj" : "") + (demo === "hold" ? " is-snap" : ""),
+      majd: ms(demo ? 0 : this.wave.majd),
+      // v21: the tally waits out of sight below its mask while the intro holds the full board, then rises in over the Wave time as the board drains
+      tallyCls: demo === "hold" ? "is-hidden" : "", tallyT: ms(Math.max(400, waveT)), tallyD: ms(waveT * 0.2),
+      chartId: this.chartId, boardId: this.boardId, boxId: this.boxId,
+      hoverPeg: this.hoverPeg, leavePeg: this.leavePeg,
+      majOpacity: reached ? "1" : "0",
+      majTransform: reached ? "translateX(-50%) translateY(0) scale(1)" : "translateX(-50%) translateY(6px) scale(0.85)",
+      majVisibility: reached ? "visible" : "hidden",
+      info: info, infoOpen: infoOpen, infoExpanded: infoOpen ? "true" : "false", infoId: this.infoId, eyeId: this.eyeId,
+      toggleInfo: () => this.setState({ info: !this.state.info }),
+      // v24 revised: the refresh button in the box's top right-hand corner takes every party out at once (and ends the intro if it is still running), so the board sinks back empty in the usual wave
+      resetBoard: () => go({ picked: [], oth: 0, activePath: -1 }),
+      eyeCls: infoOpen ? "is-open" : "is-closed", eyeRing: infoOpen ? DM.white : DM.black, eyeBg: DM.black,
+      chartLabel: "Projected seats in the " + metro.name + " council"
+    };
+  }
+}
+
+DCLite.mount(Component, {"viewAs": {"editor": "enum", "options": ["Article width", "Phone (358px)"], "default": "Article width"}, "cameraAngle": {"editor": "range", "min": 30, "max": 90, "step": 1, "unit": "°", "default": 84, "section": "Pegs"}, "pegHeight": {"editor": "range", "min": 0.5, "max": 2, "step": 0.05, "default": 1.65, "section": "Pegs"}, "outlines": {"editor": "enum", "options": ["Colour", "Ink", "None"], "default": "Colour", "section": "Pegs"}, "sunAngle": {"editor": "range", "min": 45, "max": 89, "step": 1, "unit": "°", "default": 85, "section": "Pegs"}, "pegShadow": {"editor": "range", "min": 0, "max": 2, "step": 0.05, "unit": "×", "default": 1, "section": "Pegs"}, "waveTime": {"editor": "range", "min": 0, "max": 2000, "step": 50, "unit": "ms", "default": 700, "section": "Wave"}, "waveEase": {"editor": "enum", "options": ["Smooth start and end", "Smooth start", "Smooth end", "Even"], "default": "Smooth end", "section": "Wave"}, "hopHeight": {"editor": "range", "min": 0, "max": 3, "step": 0.1, "unit": "×", "default": 1.2, "section": "Majority"}, "hopSpeed": {"editor": "range", "min": 0.5, "max": 2, "step": 0.05, "unit": "×", "default": 1, "section": "Majority"}, "hopLength": {"editor": "enum", "options": ["Short burst", "While it holds"], "default": "While it holds", "section": "Majority"}, "intro": {"editor": "enum", "options": ["On view and poll switch", "On view only", "Off"], "default": "On view and poll switch", "section": "Intro"}, "holdTime": {"editor": "range", "min": 0, "max": 4000, "step": 100, "unit": "ms", "default": 300, "section": "Intro"}, "labelSize": {"editor": "range", "min": 10, "max": 32, "step": 0.5, "unit": "px", "default": 17, "section": "Labels"}, "labelWeight": {"editor": "range", "min": 100, "max": 900, "step": 50, "default": 400, "section": "Labels"}, "letterSpacing": {"editor": "range", "min": -2, "max": 4, "step": 0.1, "unit": "px", "default": -0.5, "section": "Labels"}, "lineHeight": {"editor": "range", "min": 0.8, "max": 2.4, "step": 0.05, "default": 1.2, "section": "Labels"}, "labelPop": {"editor": "range", "min": 0, "max": 12, "step": 1, "unit": "px", "default": 4, "section": "Labels"}, "labelShadow": {"editor": "range", "min": 0, "max": 2, "step": 0.05, "unit": "×", "default": 1.15, "section": "Labels"}, "$preview": {"width": 659, "height": 920}}, document.getElementById("dc-root"), document.getElementById("dc-tpl").content);
+})();
+</script>
+</body>
+</html>
